@@ -1,4 +1,4 @@
-# testflutter
+# Flutter SK App
 
 A new Flutter project.
 
