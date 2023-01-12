@@ -18,7 +18,7 @@ class HomeScreens extends StatefulWidget {
 
 class _HomeScreensState extends State<HomeScreens> {
    MQTTClientManager mqttClientManager = MQTTClientManager();
-  final String pubTopic = "/test";
+  final String pubTopic = "/door702";
 
   bool _doorstatus = false;
 
@@ -57,7 +57,7 @@ class _HomeScreensState extends State<HomeScreens> {
                         setState(() {
                           _doorstatus = value;
                           mqttClientManager.publishMessage(
-                              pubTopic, "You Door Status is ${_doorstatus}");
+                              pubTopic, "702 ${_doorstatus}");
                         });
                       }),
 
