@@ -3,6 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:testflutter/components/appbar.dart';
 import 'package:testflutter/screens/single_room.dart';
 
+import '../models/models.dart';
+
 class IndexRoom extends StatefulWidget {
   const IndexRoom({super.key});
 
@@ -15,6 +17,13 @@ class _IndexRoomState extends State<IndexRoom> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+
+    List<Room> rooms = [
+      Room(id: 702, title: "PAT", status: false),
+      Room(id: 703, title: "CHA", status: true),
+      Room(id: 704, title: "VAI", status: true),
+      Room(id: 705, title: "CHU", status: false),
+    ];
 
     return Scaffold(
       backgroundColor: const Color(0xFF1F1F39),
@@ -84,8 +93,7 @@ class _IndexRoomState extends State<IndexRoom> {
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 1),
                                   child: Text(
-                                    // "${listKey[index].title}",
-                                    "702",
+                                    "${rooms[index].id}",
                                     style: TextStyle(
                                         fontSize: 25,
                                         fontWeight: FontWeight.bold,
@@ -97,18 +105,20 @@ class _IndexRoomState extends State<IndexRoom> {
                                   children: [
                                     SizedBox(height: 5),
                                     Text(
-                                      // listKey[index].status! ? "close" : "open",
-                                      "PAT",
+                                      "${rooms[index].title}",
                                       style: TextStyle(
                                         fontSize: 15,
                                         color: Colors.white,
                                       ),
                                     ),
                                     SizedBox(height: 3),
-                                    Text("Free",
+                                    Text(
+                                        rooms[index].status! ? "close" : "open",
                                         style: TextStyle(
                                             fontSize: 18,
-                                            color: Color(0xFF05FF3C),
+                                            color: rooms[index].status!
+                                                ? Color(0xFFFF0505)
+                                                : Color(0xFF05FF3C),
                                             fontWeight: FontWeight.bold)),
                                   ],
                                 ),
