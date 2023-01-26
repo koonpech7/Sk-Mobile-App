@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:mqtt_client/mqtt_client.dart';
+import 'package:testflutter/MQTTClientManager.dart';
+
 import '../components/components.dart';
 import '../models/models.dart';
 
@@ -153,7 +156,7 @@ class _SingleRoomState extends State<SingleRoom> {
                                   const EdgeInsets.symmetric(vertical: 10),
                               title: Text(
                                 "${listKey[index].title}",
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontSize: 25,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
@@ -163,18 +166,18 @@ class _SingleRoomState extends State<SingleRoom> {
                                 style: TextStyle(
                                   fontSize: 15,
                                   color: listKey[index].status!
-                                      ? Color(0xFFFF0505)
-                                      : Color(0xFF05FF3C),
+                                      ? const Color(0xFFFF0505)
+                                      : const Color(0xFF05FF3C),
                                 ),
                               ),
                               trailing: CircleAvatar(
-                                backgroundColor: Color(0xFF69696F),
+                                backgroundColor: const Color(0xFF69696F),
                                 radius: 30,
                                 child: IconButton(
                                   onPressed: () {},
                                   icon: listKey[index].status!
-                                      ? Icon(FontAwesomeIcons.lock)
-                                      : Icon(FontAwesomeIcons.unlock),
+                                      ? const Icon(FontAwesomeIcons.lock)
+                                      : const Icon(FontAwesomeIcons.unlock),
                                   iconSize: 30,
                                   color: Colors.white,
                                 ),

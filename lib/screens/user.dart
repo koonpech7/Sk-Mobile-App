@@ -16,7 +16,7 @@ class _UserScreensState extends State<UserScreens> {
     return Scaffold(
         backgroundColor: const Color(0xFF1F1F39),
         appBar: SKAppBar(
-          title: "Users",
+          title: "Account",
           onPressed: () {
             Navigator.pop(context);
           },
