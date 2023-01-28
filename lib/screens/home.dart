@@ -18,7 +18,7 @@ class HomeScreens extends StatefulWidget {
 
 class _HomeScreensState extends State<HomeScreens> {
    MQTTClientManager mqttClientManager = MQTTClientManager();
-  final String pubTopic = "/door702";
+  final String pubTopic = "/Door44-702";
 
   bool _doorstatus = false;
 
@@ -49,15 +49,19 @@ class _HomeScreensState extends State<HomeScreens> {
             child: Column(
               children: [
                 SwitchListTile(
-                      title: Text("Open The Door"),
+                      title: Text("Open The Door",style: TextStyle(fontSize: 25, color: Colors.white)),
                       subtitle:
-                          a != 2 ? Text("Please Open The Door") : Text("test"),
+                          _doorstatus != true ? Text("Door Status Close",style: TextStyle(color: Colors.red)) : Text("Door Status Open",style: TextStyle(color: Color(0xFF05FF3C))),
                       value: _doorstatus,
                       onChanged: (bool value) {
                         setState(() {
                           _doorstatus = value;
+                          if(_doorstatus){
+                            mqttClientManager.publishMessage(
+                              pubTopic, "on");
+                          }else{
                           mqttClientManager.publishMessage(
-                              pubTopic, "702 ${_doorstatus}");
+                              pubTopic, "off");}
                         });
                       }),
 

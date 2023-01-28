@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:testflutter/MQTTClientManager.dart';
 
+
+
 import '../components/components.dart';
 import '../models/models.dart';
 
@@ -17,18 +19,24 @@ class SingleRoom extends StatefulWidget {
 }
 
 class _SingleRoomState extends State<SingleRoom> {
-  late bool room1;
-  late bool room2;
-  late bool room3;
-  late bool room4;
+
+  MQTTClientManager mqttClientManager = MQTTClientManager();
+  final String pubTopic = "/Switch1";
+  final String pubTopic2 = "/Lamp-702";
+  final String pubTopic3 = "/Air";
+  final String pubTopic4 = "/Camera44-702";
+
+  bool _doorstatus = false;
+  bool _lamp = false;
+  bool _air = false;
+  bool _camera = false;
+
 
   @override
   void initState() {
-    room1 = false;
-    room2 = false;
-    room3 = false;
-    room4 = false;
 
+setupMqttClient();
+    setupUpdatesListener();
     super.initState();
   }
 
@@ -36,24 +44,41 @@ class _SingleRoomState extends State<SingleRoom> {
     switch (index) {
       case 1:
         setState(() {
-          room1 = !room1;
+          _doorstatus = !_doorstatus;
+          if(_doorstatus){
+            mqttClientManager.publishMessage(
+            pubTopic, "off");
+          }else{
+            mqttClientManager.publishMessage(
+            pubTopic, "on");}
         });
         break;
       case 2:
         setState(() {
-          room2 = !room2;
+          _lamp = !_lamp;
+          mqttClientManager.publishMessage(
+          pubTopic, "702 Lamp is ${_lamp}");
+
         });
         break;
 
       case 3:
         setState(() {
-          room3 = !room3;
+          _air = !_air;
+          if(_air){
+            mqttClientManager.publishMessage(
+            pubTopic3, "off");
+          }else{
+            mqttClientManager.publishMessage(
+            pubTopic3, "on");}
         });
         break;
 
       case 4:
         setState(() {
-          room4 = !room4;
+          _camera = !_camera;
+          mqttClientManager.publishMessage(
+          pubTopic, "702 Camera is ${_camera}");
         });
         break;
 
@@ -69,10 +94,10 @@ class _SingleRoomState extends State<SingleRoom> {
     var height = MediaQuery.of(context).size.height;
 
     List<ListKey> listKey = [
-      ListKey(id: 1, title: "Door", status: room1),
-      ListKey(id: 2, title: "Lamp", status: room2),
-      ListKey(id: 3, title: "Air", status: room3),
-      ListKey(id: 4, title: "Camera", status: room4)
+      ListKey(id: 1, title: "Door", status: _doorstatus),
+      ListKey(id: 2, title: "Lamp", status: _lamp),
+      ListKey(id: 3, title: "Air", status: _air),
+      ListKey(id: 4, title: "Camera", status: _camera)
     ];
 
     return Scaffold(
@@ -195,5 +220,30 @@ class _SingleRoomState extends State<SingleRoom> {
         ),
       ),
     );
+  }
+
+  Future<void> setupMqttClient() async {
+    await mqttClientManager.connect();
+    mqttClientManager.subscribe(pubTopic);
+  }
+
+  void setupUpdatesListener() {
+    mqttClientManager
+        .getMessagesStream()!
+        .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+      final recMess = c![0].payload as MqttPublishMessage;
+      final pt =
+          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n');
+       final pt2 =
+          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt2\n');
+    });
+  }
+
+   @override
+  void dispose() {
+    mqttClientManager.disconnect();
+    super.dispose();
   }
 }

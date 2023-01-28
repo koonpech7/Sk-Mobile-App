@@ -5,18 +5,18 @@ import 'package:mqtt_client/mqtt_server_client.dart';
 
 class MQTTClientManager {
   MqttServerClient client =
-      MqttServerClient.withPort('10.60.6.141', "SKAPP", 1883);
+      MqttServerClient.withPort('202.44.35.76', "SKAPP", 1883);
 
   Future<int> connect() async {
     client.logging(on: true);
     client.keepAlivePeriod = 60;
     client.onConnected = onConnected;
     client.onDisconnected = onDisconnected;
-    // client.onSubscribed = onSubscribed;
-    // client.pongCallback = pong;
+    client.onSubscribed = onSubscribed;
+    client.pongCallback = pong;
 
     final connMessage =
-        MqttConnectMessage().startClean().withWillQos(MqttQos.atLeastOnce).authenticateAs('sclass', '123456').keepAliveFor(60);
+        MqttConnectMessage().startClean().withWillQos(MqttQos.atLeastOnce).authenticateAs('sclass', 'class44702');
     client.connectionMessage = connMessage;
 
     try {
