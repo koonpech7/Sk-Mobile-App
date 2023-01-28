@@ -21,7 +21,7 @@ class SingleRoom extends StatefulWidget {
 class _SingleRoomState extends State<SingleRoom> {
 
   MQTTClientManager mqttClientManager = MQTTClientManager();
-  final String pubTopic = "/Switch1";
+  final String pubTopic = "/Switch2";
   final String pubTopic2 = "/Lamp-702";
   final String pubTopic3 = "/Air";
   final String pubTopic4 = "/Camera44-702";
