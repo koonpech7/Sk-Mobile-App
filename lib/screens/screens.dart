@@ -3,3 +3,4 @@ export './notification_page.dart';
 export './single_room.dart';
 export './home.dart';
 export './index.dart';
+export './camerapages.dart';

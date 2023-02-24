@@ -3,8 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:testflutter/MQTTClientManager.dart';
-
-
+import 'package:testflutter/screens/screens.dart';
 
 import '../components/components.dart';
 import '../models/models.dart';
@@ -19,24 +18,21 @@ class SingleRoom extends StatefulWidget {
 }
 
 class _SingleRoomState extends State<SingleRoom> {
-
-  MQTTClientManager mqttClientManager = MQTTClientManager();
-  final String pubTopic = "/Switch2";
-  final String pubTopic2 = "/Lamp-702";
-  final String pubTopic3 = "/Air";
-  final String pubTopic4 = "/Camera44-702";
+  // MQTTClientManager mqttClientManager = MQTTClientManager();
+  // final String pubTopic = "/Switch2";
+  // final String pubTopic2 = "/Lamp-702";
+  // final String pubTopic3 = "/Air";
+  // final String pubTopic4 = "/Camera44-702";
 
   bool _doorstatus = false;
   bool _lamp = false;
   bool _air = false;
   bool _camera = false;
 
-
   @override
   void initState() {
-
-setupMqttClient();
-    setupUpdatesListener();
+// setupMqttClient();
+//     setupUpdatesListener();
     super.initState();
   }
 
@@ -45,40 +41,39 @@ setupMqttClient();
       case 1:
         setState(() {
           _doorstatus = !_doorstatus;
-          if(_doorstatus){
-            mqttClientManager.publishMessage(
-            pubTopic, "off");
-          }else{
-            mqttClientManager.publishMessage(
-            pubTopic, "on");}
+          // if(_doorstatus){
+          //   mqttClientManager.publishMessage(
+          //   pubTopic, "off");
+          // }else{
+          //   mqttClientManager.publishMessage(
+          //   pubTopic, "on");}
         });
         break;
       case 2:
         setState(() {
           _lamp = !_lamp;
-          mqttClientManager.publishMessage(
-          pubTopic, "702 Lamp is ${_lamp}");
-
+          //   mqttClientManager.publishMessage(
+          //   pubTopic, "702 Lamp is ${_lamp}");
         });
         break;
 
       case 3:
         setState(() {
           _air = !_air;
-          if(_air){
-            mqttClientManager.publishMessage(
-            pubTopic3, "off");
-          }else{
-            mqttClientManager.publishMessage(
-            pubTopic3, "on");}
+          // if(_air){
+          //   mqttClientManager.publishMessage(
+          //   pubTopic3, "off");
+          // }else{
+          //   mqttClientManager.publishMessage(
+          //   pubTopic3, "on");}
         });
         break;
 
       case 4:
         setState(() {
           _camera = !_camera;
-          mqttClientManager.publishMessage(
-          pubTopic, "702 Camera is ${_camera}");
+          // mqttClientManager.publishMessage(
+          // pubTopic, "702 Camera is ${_camera}");
         });
         break;
 
@@ -199,7 +194,14 @@ setupMqttClient();
                                 backgroundColor: const Color(0xFF69696F),
                                 radius: 30,
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const CameraScreens()),
+                                    );
+                                  },
                                   icon: listKey[index].status!
                                       ? const Icon(FontAwesomeIcons.lock)
                                       : const Icon(FontAwesomeIcons.unlock),
@@ -222,28 +224,28 @@ setupMqttClient();
     );
   }
 
-  Future<void> setupMqttClient() async {
-    await mqttClientManager.connect();
-    mqttClientManager.subscribe(pubTopic);
-  }
+  // Future<void> setupMqttClient() async {
+  //   await mqttClientManager.connect();
+  //   mqttClientManager.subscribe(pubTopic);
+  // }
 
-  void setupUpdatesListener() {
-    mqttClientManager
-        .getMessagesStream()!
-        .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
-      final recMess = c![0].payload as MqttPublishMessage;
-      final pt =
-          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n');
-       final pt2 =
-          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt2\n');
-    });
-  }
+  // void setupUpdatesListener() {
+  //   mqttClientManager
+  //       .getMessagesStream()!
+  //       .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+  //     final recMess = c![0].payload as MqttPublishMessage;
+  //     final pt =
+  //         MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+  //     print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt\n');
+  //      final pt2 =
+  //         MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+  //     print('MQTTClient::Message received on topic: <${c[0].topic}> is $pt2\n');
+  //   });
+  // }
 
-   @override
-  void dispose() {
-    mqttClientManager.disconnect();
-    super.dispose();
-  }
+  //  @override
+  // void dispose() {
+  //   mqttClientManager.disconnect();
+  //   super.dispose();
+  // }
 }
