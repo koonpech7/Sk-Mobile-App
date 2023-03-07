@@ -26,7 +26,7 @@ class _CameraScreensState extends State<CameraScreens> {
 
   void _initPlayer() async {
     videoPlayerController = VideoPlayerController.network(
-        'https://32aa-202-44-35-79.ap.ngrok.io/stream/aefc49f7-e29b-4a84-bd42-7ba08e51f16d/channel/0/hls/live/index.m3u8');
+        'https://3304-223-24-168-39.ap.ngrok.io/stream/aefc49f7-e29b-4a84-bd42-7ba08e51f16d/channel/0/hls/live/index.m3u8');
     await Future.wait([videoPlayerController.initialize()]);
 
     chewieController = ChewieController(

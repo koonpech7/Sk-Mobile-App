@@ -22,7 +22,6 @@ class _IndexScreenState extends State<IndexScreen> {
 
 
   List<Widget> _widgetOptions = <Widget>[
-    HomeScreens(),
     IndexRoom(),
     NotificationScreen(),
     UserScreens()
@@ -43,8 +42,6 @@ class _IndexScreenState extends State<IndexScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.houseChimney), label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.peopleGroup), label: "Rooms"),
           BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.bell), label: "Notifications"),
           BottomNavigationBarItem(
