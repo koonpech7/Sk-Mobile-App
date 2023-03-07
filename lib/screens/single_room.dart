@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:testflutter/MQTTClientManager.dart';
+import 'package:testflutter/screens/lightscreen.dart';
 import 'package:testflutter/screens/screens.dart';
 
 import '../components/components.dart';
@@ -53,6 +54,12 @@ class _SingleRoomState extends State<SingleRoom> {
         });
         break;
       case 2:
+      Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const LightScreens()),
+                                    );
         setState(() {
           _lamp = !_lamp;
            if(_lamp){
