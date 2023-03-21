@@ -19,7 +19,6 @@ class SingleRoom extends StatefulWidget {
 }
 
 class _SingleRoomState extends State<SingleRoom> {
-
   MQTTClientManager mqttClientManager = MQTTClientManager();
   final String pubTopic = "/Door44-702";
   final String pubTopic2 = "/Switch1";
@@ -36,7 +35,7 @@ class _SingleRoomState extends State<SingleRoom> {
   @override
   void initState() {
     setupMqttClient();
-    setupUpdatesListener();
+    // setupUpdatesListener();
     super.initState();
   }
 
@@ -45,42 +44,37 @@ class _SingleRoomState extends State<SingleRoom> {
       case 1:
         setState(() {
           _doorstatus = !_doorstatus;
-          if(_doorstatus){
-            mqttClientManager.publishMessage( 
-            pubTopic, "off");
-          }else{
-            mqttClientManager.publishMessage(
-            pubTopic, "on");}
+          if (_doorstatus) {
+            mqttClientManager.publishMessage(pubTopic, "off");
+          } else {
+            mqttClientManager.publishMessage(pubTopic, "on");
+          }
         });
         break;
       case 2:
-      Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const LightScreens()),
-                                    );
-        setState(() {
-          _lamp = !_lamp;
-           if(_lamp){
-            mqttClientManager.publishMessage(
-            pubTopic2, "off");
-          }else{
-            mqttClientManager.publishMessage(
-            pubTopic2, "on");}
-        });
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const LightScreens()),
+        );
+        // setState(() {
+        //   _lamp = !_lamp;
+        //   if (_lamp) {
+        //     mqttClientManager.publishMessage(pubTopic2, "off");
+        //   } else {
+        //     mqttClientManager.publishMessage(pubTopic2, "on");
+        //   }
+        // });
         break;
 
       case 3:
-        setState(() {
-          _air = !_air;
-          if(_air){
-            mqttClientManager.publishMessage(
-            pubTopic3, "off");
-          }else{
-            mqttClientManager.publishMessage(
-            pubTopic3, "on");}
-        });
+        // setState(() {
+        //   _air = !_air;
+        //   if (_air) {
+        //     mqttClientManager.publishMessage(pubTopic3, "off");
+        //   } else {
+        //     mqttClientManager.publishMessage(pubTopic3, "on");
+        //   }
+        // });
         break;
 
       case 4:
@@ -89,12 +83,10 @@ class _SingleRoomState extends State<SingleRoom> {
         //   mqttClientManager.publishMessage(
         //   pubTopic, "702 Camera is ${_camera}");
         // });
-         Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const CameraScreens()),
-                                    );
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const CameraScreens()),
+        );
         break;
 
       default:
@@ -215,7 +207,7 @@ class _SingleRoomState extends State<SingleRoom> {
                                 radius: 30,
                                 child: IconButton(
                                   onPressed: () {
-                                   
+                                    _onPressed(index + 1);
                                   },
                                   icon: listKey[index].status!
                                       ? const Icon(FontAwesomeIcons.lock)
@@ -244,28 +236,28 @@ class _SingleRoomState extends State<SingleRoom> {
     mqttClientManager.subscribe(subTopic);
   }
 
-  void setupUpdatesListener() {
-    mqttClientManager
-        .getMessagesStream()!
-        .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
-      final recMess = c![0].payload as MqttPublishMessage;
-      final publicMess =
-          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-      // print('MQTTClient::Message received on topic: <${c[0].topic}> is $publicMess\n');
+  // void setupUpdatesListener() {
+  //   mqttClientManager
+  //       .getMessagesStream()!
+  //       .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+  //     final recMess = c![0].payload as MqttPublishMessage;
+  //     final publicMess =
+  //         MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+  //     // print('MQTTClient::Message received on topic: <${c[0].topic}> is $publicMess\n');
 
-      if(publicMess=="On"){
-        setState(() {
-          _doorstatus = false;
-        });
-      }else if (publicMess=="Off"){
-        setState(() {
-          _doorstatus = true;
-        });
-      }
-    });
-  }
+  //     if (publicMess == "On") {
+  //       setState(() {
+  //         _doorstatus = false;
+  //       });
+  //     } else if (publicMess == "Off") {
+  //       setState(() {
+  //         _doorstatus = true;
+  //       });
+  //     }
+  //   });
+  // }
 
-   @override
+  @override
   void dispose() {
     mqttClientManager.disconnect();
     super.dispose();

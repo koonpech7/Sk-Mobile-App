@@ -15,8 +15,10 @@ class MQTTClientManager {
     client.onSubscribed = onSubscribed;
     client.pongCallback = pong;
 
-    final connMessage =
-        MqttConnectMessage().startClean().withWillQos(MqttQos.atLeastOnce).authenticateAs('sclass', 'class44702');
+    final connMessage = MqttConnectMessage()
+        .startClean()
+        .withWillQos(MqttQos.atLeastOnce)
+        .authenticateAs('sclass', 'class44702');
     client.connectionMessage = connMessage;
 
     try {

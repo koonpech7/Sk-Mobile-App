@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:testflutter/components/appbar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -24,6 +22,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
       Notifications(name: "VTN", time: "06:45 pm", status: true),
       Notifications(name: "TAL", time: "09:26 am", status: false),
       Notifications(name: "SKM", time: "12:30 pm", status: true),
+      Notifications(name: "KKK", time: "12:30 pm", status: true),
+      Notifications(name: "POW", time: "12:30 pm", status: true),
+      Notifications(name: "VPT", time: "12:30 pm", status: true),
     ];
 
     return Scaffold(
@@ -39,9 +40,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SizedBox(
-          height: height / 1.7,
+          height: height / 0.8,
           child: ListView.builder(
-            physics: const NeverScrollableScrollPhysics(),
+            // physics: const NeverScrollableScrollPhysics(),
             itemCount: notification.length,
             itemBuilder: (context, index) {
               return GestureDetector(
@@ -49,7 +50,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child: Padding(
                   padding: const EdgeInsets.all(2.0),
                   child: SizedBox(
-                    height: height / 7,
+                    height: height / 7.5,
                     child: Card(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),
