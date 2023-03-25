@@ -3,7 +3,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:testflutter/MQTTClientManager.dart';
-import 'package:testflutter/screens/lightscreen.dart';
 import 'package:testflutter/screens/screens.dart';
 
 import '../components/components.dart';
@@ -56,33 +55,16 @@ class _SingleRoomState extends State<SingleRoom> {
           context,
           MaterialPageRoute(builder: (context) => const LightScreens()),
         );
-        // setState(() {
-        //   _lamp = !_lamp;
-        //   if (_lamp) {
-        //     mqttClientManager.publishMessage(pubTopic2, "off");
-        //   } else {
-        //     mqttClientManager.publishMessage(pubTopic2, "on");
-        //   }
-        // });
         break;
 
       case 3:
-        // setState(() {
-        //   _air = !_air;
-        //   if (_air) {
-        //     mqttClientManager.publishMessage(pubTopic3, "off");
-        //   } else {
-        //     mqttClientManager.publishMessage(pubTopic3, "on");
-        //   }
-        // });
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AirConditioner()),
+        );
         break;
 
       case 4:
-        // setState(() {
-        //   _camera = !_camera;
-        //   mqttClientManager.publishMessage(
-        //   pubTopic, "702 Camera is ${_camera}");
-        // });
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => const CameraScreens()),

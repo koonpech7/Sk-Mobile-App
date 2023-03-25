@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:testflutter/components/appbar.dart';
 
-import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
+
+import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
 class CameraScreens extends StatefulWidget {
   const CameraScreens({super.key});
@@ -12,8 +13,12 @@ class CameraScreens extends StatefulWidget {
 }
 
 class _CameraScreensState extends State<CameraScreens> {
-  late VideoPlayerController videoPlayerController;
-  ChewieController? chewieController;
+  VlcPlayerController controller = VlcPlayerController.network(
+    "rtsp://202.44.35.76:5541/27aec28e-6181-4753-9acd-0456a75f0289/0",
+    hwAcc: HwAcc.full,
+    autoPlay: true,
+    options: VlcPlayerOptions(),
+  );
 
   // final VlcPlayerController _playerController - VlcPlayerController.net
 
@@ -21,32 +26,6 @@ class _CameraScreensState extends State<CameraScreens> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _initPlayer();
-  }
-
-  void _initPlayer() async {
-    videoPlayerController = VideoPlayerController.network(
-        'http://202.44.35.76:9093/stream/27aec28e-6181-4753-9acd-0456a75f0289/channel/0/hls/live/index.m3u8');
-    await Future.wait([videoPlayerController.initialize()]);
-
-    chewieController = ChewieController(
-        videoPlayerController: videoPlayerController,
-        autoPlay: false,
-        additionalOptions: (context) {
-          return <OptionItem>[
-            OptionItem(
-              onTap: () => debugPrint('OPtion 1'),
-              iconData: Icons.chat,
-              title: 'Option1',
-            ),
-            OptionItem(
-              onTap: () => debugPrint("OPtion 2"),
-              iconData: Icons.share,
-              title: 'Option2',
-            )
-          ];
-        });
-    setState(() {});
   }
 
   // void _initPlayer() async {
@@ -77,8 +56,7 @@ class _CameraScreensState extends State<CameraScreens> {
   @override
   void dispose() {
     // TODO: implement dispose
-    // videoPlayerController.dispose();
-    // chewieController?.dispose();
+    controller.dispose();
     super.dispose();
   }
 
@@ -97,42 +75,42 @@ class _CameraScreensState extends State<CameraScreens> {
           },
           havetactions: false,
         ),
-        body: chewieController != null &&
-                chewieController!.videoPlayerController.value.isInitialized
-            ? Chewie(controller: chewieController!)
-            : const Center(
-                child: CircularProgressIndicator(),
-              )
+        body: Center(
+            child: VlcPlayer(
+          controller: controller,
+          aspectRatio: 16 / 9,
+          placeholder: Center(child: CircularProgressIndicator()),
+        )
 
-        // body: Padding(
-        //   padding: const EdgeInsets.symmetric(horizontal: 20),
-        //   child: Column(children: [
-        //     Container(
-        //       height: height / 1.5,
-        //       width: width,
-        //       padding: const EdgeInsets.all(8),
-        //       color: Colors.green,
-        //       child: Column(
-        //         children: [
-        //           Container(
-        //             height: height / 2,
-        //             width: width,
-        //             color: Colors.red,
-        //           ),
-        //           const SizedBox(
-        //             height: 10,
-        //             width: 10,
-        //           ),
-        //           Container(
-        //             height: height / 8,
-        //             width: width,
-        //             color: Colors.blue,
-        //           )
-        //         ],
-        //       ),
-        //     )
-        //   ]),
-        // ),
-        );
+            // body: Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: Column(children: [
+            //     Container(
+            //       height: height / 1.5,
+            //       width: width,
+            //       padding: const EdgeInsets.all(8),
+            //       color: Colors.green,
+            //       child: Column(
+            //         children: [
+            //           Container(
+            //             height: height / 2,
+            //             width: width,
+            //             color: Colors.red,
+            //           ),
+            //           const SizedBox(
+            //             height: 10,
+            //             width: 10,
+            //           ),
+            //           Container(
+            //             height: height / 8,
+            //             width: width,
+            //             color: Colors.blue,
+            //           )
+            //         ],
+            //       ),
+            //     )
+            //   ]),
+            // ),
+            ));
   }
 }
