@@ -34,7 +34,8 @@ class _SingleRoomState extends State<SingleRoom> {
   @override
   void initState() {
     setupMqttClient();
-    // setupUpdatesListener();
+    setupUpdatesListener();
+
     super.initState();
   }
 
@@ -218,26 +219,26 @@ class _SingleRoomState extends State<SingleRoom> {
     mqttClientManager.subscribe(subTopic);
   }
 
-  // void setupUpdatesListener() {
-  //   mqttClientManager
-  //       .getMessagesStream()!
-  //       .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
-  //     final recMess = c![0].payload as MqttPublishMessage;
-  //     final publicMess =
-  //         MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-  //     // print('MQTTClient::Message received on topic: <${c[0].topic}> is $publicMess\n');
+  void setupUpdatesListener() {
+    mqttClientManager
+        .getMessagesStream()!
+        .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
+      final recMess = c![0].payload as MqttPublishMessage;
+      final publicMess =
+          MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
+      // print('MQTTClient::Message received on topic: <${c[0].topic}> is $publicMess\n');
 
-  //     if (publicMess == "On") {
-  //       setState(() {
-  //         _doorstatus = false;
-  //       });
-  //     } else if (publicMess == "Off") {
-  //       setState(() {
-  //         _doorstatus = true;
-  //       });
-  //     }
-  //   });
-  // }
+      if (publicMess == "On") {
+        setState(() {
+          _doorstatus = false;
+        });
+      } else if (publicMess == "Off") {
+        setState(() {
+          _doorstatus = true;
+        });
+      }
+    });
+  }
 
   @override
   void dispose() {

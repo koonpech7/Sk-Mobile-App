@@ -87,32 +87,32 @@ class _AirConditionerState extends State<AirConditioner> {
             SizedBox(
               width: width / 15,
             ),
-            IconButton(
-              icon: const FaIcon(FontAwesomeIcons.check),
-              color: _airstatus ? Colors.red : Colors.green,
-              iconSize: 50,
-              onPressed: () {
-                setState(() {
-                  valueItem = item.toString();
-                  _airstatus = true;
-                  mqttClientManager.publishMessage(AirTopic, valueItem);
-                });
-              },
-            ),
-            SizedBox(
-              width: width / 15,
-            ),
-            IconButton(
-              icon: const FaIcon(FontAwesomeIcons.x),
-              color: _airstatus ? Colors.green : Colors.red,
-              iconSize: 50,
-              onPressed: () {
-                setState(() {
-                  _airstatus = false;
-                  mqttClientManager.publishMessage(AirTopic, "off");
-                });
-              },
-            ),
+            // IconButton(
+            //   icon: const FaIcon(FontAwesomeIcons.check),
+            //   color: _airstatus ? Colors.red : Colors.green,
+            //   iconSize: 50,
+            //   onPressed: () {
+            //     setState(() {
+            //       valueItem = item.toString();
+            //       _airstatus = true;
+            //       mqttClientManager.publishMessage(AirTopic, valueItem);
+            //     });
+            //   },
+            // ),
+            // SizedBox(
+            //   width: width / 15,
+            // ),
+            // IconButton(
+            //   icon: const FaIcon(FontAwesomeIcons.x),
+            //   color: _airstatus ? Colors.green : Colors.red,
+            //   iconSize: 50,
+            //   onPressed: () {
+            //     setState(() {
+            //       _airstatus = false;
+            //       mqttClientManager.publishMessage(AirTopic, "off");
+            //     });
+            //   },
+            // ),
             // Text(
             //   valueItem,
             //   style: TextStyle(color: Colors.white),
@@ -151,7 +151,7 @@ class _AirConditionerState extends State<AirConditioner> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     mqttClientManager.disconnect();
+    super.dispose();
   }
 }

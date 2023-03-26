@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:testflutter/components/appbar.dart';
-
-import 'package:video_player/video_player.dart';
-
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
 class CameraScreens extends StatefulWidget {

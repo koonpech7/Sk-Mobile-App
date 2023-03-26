@@ -46,8 +46,10 @@ class _LightScreensState extends State<LightScreens> {
     // TODO: implement initState
     super.initState();
     setupMqttClient();
+    // setupUpdatesListener();
   }
 
+  // ignore: non_constant_identifier_names
   void ChangeCheckboxTrue() {
     Timer(const Duration(seconds: 1), () {
       setState(() {
@@ -87,7 +89,8 @@ class _LightScreensState extends State<LightScreens> {
     });
   }
 
-  void ChangeCheckboxFalse() {
+  // ignore: non_constant_identifier_names
+  void ChangeCheckboxFalse() async {
     Timer(const Duration(seconds: 1), () {
       setState(() {
         _lampSw1 = true;
@@ -194,13 +197,19 @@ class _LightScreensState extends State<LightScreens> {
                                     isChecked = value!;
                                     Navigator.pop(context);
                                     if (isChecked == true) {
-                                      ChangeCheckboxTrue();
+                                      try {
+                                        ChangeCheckboxTrue();
+                                      } catch (e, stacktrace) {
+                                        // TODO
+
+                                      }
                                     } else {
                                       ChangeCheckboxFalse();
                                     }
                                   });
                                 });
                           },
+
                           // QuickAlert.show(
                           //   context: context,
                           //   type: QuickAlertType.confirm,
@@ -397,12 +406,12 @@ class _LightScreensState extends State<LightScreens> {
 
   Future<void> setupMqttClient() async {
     await mqttClientManager.connect();
-    // mqttClientManager.subscribe(subTopicSw1);
-    // mqttClientManager.subscribe(subTopicSw2);
-    // mqttClientManager.subscribe(subTopicSw3);
-    // mqttClientManager.subscribe(subTopicSw4);
-    // mqttClientManager.subscribe(subTopicSw5);
-    // mqttClientManager.subscribe(subTopicSw6);
+    mqttClientManager.subscribe(subTopicSw1);
+    mqttClientManager.subscribe(subTopicSw2);
+    mqttClientManager.subscribe(subTopicSw3);
+    mqttClientManager.subscribe(subTopicSw4);
+    mqttClientManager.subscribe(subTopicSw5);
+    mqttClientManager.subscribe(subTopicSw6);
   }
 
   void setupUpdatesListener() {
@@ -416,20 +425,10 @@ class _LightScreensState extends State<LightScreens> {
       if (publicMess == "On") {
         setState(() {
           _lampSw1 = false;
-          _lampSw2 = false;
-          _lampSw3 = false;
-          _lampSw4 = false;
-          _lampSw5 = false;
-          _lampSw6 = false;
         });
       } else if (publicMess == "Off") {
         setState(() {
           _lampSw1 = true;
-          _lampSw2 = true;
-          _lampSw3 = true;
-          _lampSw4 = true;
-          _lampSw5 = true;
-          _lampSw6 = true;
         });
       }
     });
@@ -438,7 +437,7 @@ class _LightScreensState extends State<LightScreens> {
   @override
   void dispose() {
     // TODO: implement dispose
-    super.dispose();
     mqttClientManager.disconnect();
+    super.dispose();
   }
 }

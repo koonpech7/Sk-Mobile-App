@@ -10,14 +10,15 @@ import 'package:testflutter/screens/NotiPages.dart';
 import 'package:testflutter/screens/NotificationsDetailsPages.dart';
 import 'package:testflutter/screens/screens.dart';
 
-class NotificationScreen extends StatefulWidget {
-  const NotificationScreen({super.key});
+class NotificationScreenSingel extends StatefulWidget {
+  const NotificationScreenSingel({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
+  State<NotificationScreenSingel> createState() =>
+      _NotificationScreenSingelState();
 }
 
-class _NotificationScreenState extends State<NotificationScreen> {
+class _NotificationScreenSingelState extends State<NotificationScreenSingel> {
   // response
   late NotificationLog notificationsLog;
   // isLoading ?
@@ -28,7 +29,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   //Api Call
 
   Future<NotificationLog> getDataFromApi() async {
-    Uri url = Uri.parse("http://202.44.35.76:9091/api/reports/");
+    Uri url = Uri.parse("http://202.44.35.76:9091/api/reports/3");
     var response = await http.get(url);
 
     if (response.statusCode == HttpStatus.ok) {
@@ -87,109 +88,113 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   )
                 : notificationsLog.items.isEmpty
                     ? Text("No data")
-                    : ListView.builder(
-                        padding: const EdgeInsets.all(20.0),
-                        itemCount: notificationsLog.items.length,
-                        itemBuilder: ((context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => NotiDetails(
-                                          userPat:
-                                              notificationsLog.items[index])));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: SizedBox(
-                                height: height / 7.5,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  elevation: 0,
-                                  color: const Color(0xFF2F2F42),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: ListTile(
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 10),
-                                      title: Text(
-                                        notificationsLog.items[index].roomLabel,
-                                        style: const TextStyle(
-                                            fontSize: 28,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      ),
-                                      subtitle: Row(
-                                        children: [
-                                          const Text("Status   ",
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold)),
-                                          Text(
-                                              notificationsLog
-                                                  .items[index].status,
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  color: Color.fromARGB(
-                                                      255, 4, 236, 11),
-                                                  fontWeight: FontWeight.bold))
-                                        ],
-                                      ),
-                                      // subtitle: Text(
-                                      //   "Status ${notilog.items[index].status.name}"
-                                      //   // notilog.items[index].status.name
-                                      //   ,
-                                      //   style: const TextStyle(
-                                      //       fontSize: 15,
-                                      //       color:
-                                      //           Color.fromARGB(255, 0, 241, 8)),
-                                      // ),
+                    : Text("data")
+        // : ListView.builder(
+        //     padding: const EdgeInsets.all(20.0),
+        //     itemCount: notificationsLog.items.length,
+        //     itemBuilder: ((context, index) {
+        //       return GestureDetector(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                   builder: (context) => NotiDetails(
+        //                       userPat:
+        //                           notificationsLog.items[index])));
+        //         },
+        //         child: Padding(
+        //           padding: const EdgeInsets.all(2.0),
+        //           child: SizedBox(
+        //             height: height / 7.5,
+        //             child: Card(
+        //               shape: RoundedRectangleBorder(
+        //                 borderRadius: BorderRadius.circular(20),
+        //               ),
+        //               elevation: 0,
+        //               color: const Color(0xFF2F2F42),
+        //               child: Padding(
+        //                 padding: const EdgeInsets.symmetric(
+        //                     horizontal: 20),
+        //                 child: ListTile(
+        //                   contentPadding:
+        //                       const EdgeInsets.symmetric(
+        //                           vertical: 10),
+        //                   title: Text(
+        //                     notificationsLog.items[index].roomLabel,
+        //                     style: const TextStyle(
+        //                         fontSize: 28,
+        //                         fontWeight: FontWeight.bold,
+        //                         color: Colors.white),
+        //                   ),
+        //                   subtitle: Row(
+        //                     children: [
+        //                       const Text("Status   ",
+        //                           style: TextStyle(
+        //                               fontSize: 18,
+        //                               color: Colors.white,
+        //                               fontWeight: FontWeight.bold)),
+        //                       Text(
+        //                           notificationsLog
+        //                               .items[index].status,
+        //                           style: const TextStyle(
+        //                               fontSize: 18,
+        //                               color: Color.fromARGB(
+        //                                   255, 4, 236, 11),
+        //                               fontWeight: FontWeight.bold))
+        //                     ],
+        //                   ),
+        //                   // subtitle: Text(
+        //                   //   "Status ${notilog.items[index].status.name}"
+        //                   //   // notilog.items[index].status.name
+        //                   //   ,
+        //                   //   style: const TextStyle(
+        //                   //       fontSize: 15,
+        //                   //       color:
+        //                   //           Color.fromARGB(255, 0, 241, 8)),
+        //                   // ),
 
-                                      trailing: Column(
-                                        children: [
-                                          Text(
-                                            notificationsLog
-                                                .items[index].reportTime,
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                          SizedBox(
-                                            height: height / 90,
-                                          ),
-                                          Text(
-                                            notificationsLog
-                                                .items[index].reportDate,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white),
-                                          ),
-                                        ],
-                                      ),
-                                      // trailing: Text(
-                                      //   notificationsLog
-                                      //       .items[index].reportTime,
-                                      //   style: const TextStyle(
-                                      //       fontSize: 20,
-                                      //       fontWeight: FontWeight.bold,
-                                      //       color: Color.fromARGB(
-                                      //           255, 163, 162, 162)),
-                                      // ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          );
-                        })));
+        //                   trailing: Column(
+        //                     children: [
+        //                       Text(
+        //                         notificationsLog
+        //                             .items[index].reportTime,
+        //                         style: TextStyle(
+        //                             fontSize: 18,
+        //                             fontWeight: FontWeight.bold,
+        //                             color: Colors.white),
+        //                       ),
+        //                       SizedBox(
+        //                         height: height / 90,
+        //                       ),
+        //                       Text(
+        //                         notificationsLog
+        //                             .items[index].reportDate,
+        //                         style: TextStyle(
+        //                             fontSize: 16,
+        //                             fontWeight: FontWeight.bold,
+        //                             color: Colors.white),
+        //                       ),
+        //                     ],
+        //                   ),
+        //                   // trailing: Text(
+        //                   //   notificationsLog
+        //                   //       .items[index].reportTime,
+        //                   //   style: const TextStyle(
+        //                   //       fontSize: 20,
+        //                   //       fontWeight: FontWeight.bold,
+        //                   //       color: Color.fromARGB(
+        //                   //           255, 163, 162, 162)),
+        //                   // ),
+        //                 ),
+        //               ),
+        //             ),
+        //           ),
+        //         ),
+        //       );
+        //     }
+        //   )
+        // )
+        );
   }
 
   // Widget getMyrow(int index) {

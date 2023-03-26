@@ -6,3 +6,4 @@ export './index.dart';
 export './camerapages.dart';
 export './air_conditioner.dart';
 export './lightscreen.dart';
+export './NotiPages.dart';
