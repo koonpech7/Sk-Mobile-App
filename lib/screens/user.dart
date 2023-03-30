@@ -16,10 +16,11 @@ class _UserScreensState extends State<UserScreens> {
     return Scaffold(
         backgroundColor: const Color(0xFF1F1F39),
         appBar: SKAppBar(
-          title: "Account",
+          title: "All Setting",
           onPressed: () {
             Navigator.pop(context);
           },
+          subtitle: "Setting MQTT Server and Account",
           haveleading: false,
           havetactions: false,
         ));

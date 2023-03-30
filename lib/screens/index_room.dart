@@ -34,6 +34,7 @@ class _IndexRoomState extends State<IndexRoom> {
           Navigator.pop(context);
         },
         haveleading: false,
+        havetactions: false,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),

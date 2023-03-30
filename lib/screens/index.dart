@@ -8,8 +8,6 @@ import 'package:testflutter/screens/index_room.dart';
 import 'package:testflutter/screens/single_room.dart';
 import 'package:testflutter/screens/user.dart';
 
-import 'NotificationsgetSingel.dart';
-
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key});
 
@@ -44,7 +42,7 @@ class _IndexScreenState extends State<IndexScreen> {
           BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.bell), label: "Notifications"),
           BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.user), label: "Account"),
+              icon: Icon(FontAwesomeIcons.gear), label: "Account"),
         ],
         currentIndex: _selectedIndex,
         backgroundColor: Color(0xff1F1F39),

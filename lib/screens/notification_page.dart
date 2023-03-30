@@ -6,9 +6,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:testflutter/models/models.dart';
 
 import 'package:http/http.dart' as http;
-import 'package:testflutter/screens/NotiPages.dart';
-import 'package:testflutter/screens/NotificationsDetailsPages.dart';
 import 'package:testflutter/screens/screens.dart';
+
+import 'getSingelNotipage.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -68,6 +68,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           onPressed: () {
             Navigator.pop(context);
           },
+          subtitle: "Log Change Status ",
           haveleading: false,
           havetactions: false,
         ),
@@ -93,12 +94,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         itemBuilder: ((context, index) {
                           return GestureDetector(
                             onTap: () {
+                              print(notificationsLog.items[index].id);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => NotiDetails(
-                                          userPat:
-                                              notificationsLog.items[index])));
+                                      builder: (context) => GetSingelNoti(
+                                            index: notificationsLog
+                                                .items[index].id,
+                                          )));
                             },
                             child: Padding(
                               padding: const EdgeInsets.all(2.0),

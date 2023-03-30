@@ -108,40 +108,7 @@ class _SingleRoomState extends State<SingleRoom> {
               width: width,
               padding: const EdgeInsets.all(8),
               child: Column(
-                children: [
-                  Row(
-                    children: const [
-                      CircleAvatar(
-                        backgroundColor: Color(0xFF8EE592),
-                        radius: 30,
-                        child: Text(
-                          '1',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      CircleAvatar(
-                        backgroundColor: Color(0xFF797979),
-                        radius: 30,
-                        child: Text(
-                          '2',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
-                        ),
-                      ),
-                      SizedBox(width: 20),
-                      CircleAvatar(
-                        backgroundColor: Color(0xFF797979),
-                        radius: 30,
-                        child: Text(
-                          '3',
-                          style: TextStyle(fontSize: 25, color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  )
-                ],
+                children: [],
               ),
             ),
             SizedBox(
