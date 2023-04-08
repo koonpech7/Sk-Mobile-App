@@ -437,7 +437,7 @@ class _LightScreensState extends State<LightScreens> {
   @override
   void dispose() {
     // TODO: implement dispose
-    mqttClientManager.disconnect();
+    // mqttClientManager.disconnect();
     super.dispose();
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:testflutter/MQTTClientManager.dart';
 import 'package:testflutter/screens/screens.dart';
@@ -21,6 +22,10 @@ class SingleRoom extends StatefulWidget {
 
 class _SingleRoomState extends State<SingleRoom> {
   MQTTClientManager mqttClientManager = MQTTClientManager();
+
+  MqttServerClient client =
+      MqttServerClient.withPort('202.44.35.76', "SKAPP", 1883);
+
   final String pubTopic = "/Door44-702";
   final String pubTopic2 = "/Switch1";
   final String pubTopic3 = "/Air";
@@ -44,28 +49,44 @@ class _SingleRoomState extends State<SingleRoom> {
   void _onPressed(index) {
     switch (index) {
       case 1:
-        if (_doorstatus) {
-          try {
+        // if (_doorstatus) {
+        //   mqttClientManager.publishMessage(pubTopic, "Off");
+        //   setState(() {
+        //     _doorstatus = !_doorstatus;
+        //   });
+        //   // try {
+        //   //   mqttClientManager.publishMessage(pubTopic, "off");
+        //   //   setState(() {
+        //   //     _doorstatus = !_doorstatus;
+        //   //   });
+        //   // } on Exception catch (e) {
+        //   //   // TODO
+        //   //   print(e);
+        //   //   getError("Opps...", "Plese Check you MQTT Server");
+        //   // }
+        // } else {
+        //   mqttClientManager.publishMessage(pubTopic, "on");
+        //   setState(() {
+        //     _doorstatus = !_doorstatus;
+        //   });
+        // try {
+        //   mqttClientManager.publishMessage(pubTopic, "on");
+        //   setState(() {
+        //     _doorstatus = !_doorstatus;
+        //   });
+        // } on Exception catch (e) {
+        //   // TODO
+        //   print(e);
+        // }
+
+        setState(() {
+          _doorstatus = !_doorstatus;
+          if (_doorstatus) {
             mqttClientManager.publishMessage(pubTopic, "off");
-            setState(() {
-              _doorstatus = !_doorstatus;
-            });
-          } on Exception catch (e) {
-            // TODO
-            print(e);
-            getError("Opps...", "Plese Check you MQTT Server");
-          }
-        } else {
-          try {
+          } else {
             mqttClientManager.publishMessage(pubTopic, "on");
-            setState(() {
-              _doorstatus = !_doorstatus;
-            });
-          } on Exception catch (e) {
-            // TODO
-            print(e);
           }
-        }
+        });
         break;
       case 2:
         Navigator.push(
@@ -82,11 +103,11 @@ class _SingleRoomState extends State<SingleRoom> {
         break;
 
       case 4:
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CameraScreens()),
-        );
-        break;
+      // Navigator.push(
+      //   context,
+      //   MaterialPageRoute(builder: (context) => const CameraScreens()),
+      // );
+      // break;
 
       default:
     }

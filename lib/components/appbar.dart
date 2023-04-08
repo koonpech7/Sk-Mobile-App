@@ -18,7 +18,7 @@ class SKAppBar extends AppBar {
                   icon: const Icon(FontAwesomeIcons.chevronLeft),
                   iconSize: 30,
                 )
-              : SizedBox(),
+              : const SizedBox(),
           titleSpacing: 0,
           title: Column(
             // mainAxisAlignment: MainAxisAlignment.start,
@@ -26,12 +26,13 @@ class SKAppBar extends AppBar {
             children: [
               Text(
                 title,
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              SizedBox(height: 1),
+              const SizedBox(height: 1),
               Text(
                 subtitle,
-                style: TextStyle(fontSize: 20),
+                style: const TextStyle(fontSize: 20),
               ),
             ],
           ),
@@ -51,7 +52,7 @@ class SKAppBar extends AppBar {
                       ),
                     ),
                   )
-                : SizedBox()
+                : const SizedBox()
           ],
         );
 }

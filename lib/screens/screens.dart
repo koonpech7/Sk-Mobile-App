@@ -8,3 +8,5 @@ export './air_conditioner.dart';
 export './lightscreen.dart';
 export './getSingelNotipage.dart';
 export './allsettingpages.dart';
+export './Indexrooms.dart';
+export './getSingelRoompages.dart';

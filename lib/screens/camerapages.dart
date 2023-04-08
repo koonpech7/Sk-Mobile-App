@@ -1,60 +1,29 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:testflutter/components/appbar.dart';
 import 'package:flutter_vlc_player/flutter_vlc_player.dart';
 
 class CameraScreens extends StatefulWidget {
-  const CameraScreens({super.key});
+  const CameraScreens(
+      {super.key, required this.cameraURL, required this.roomNumber});
+
+  final cameraURL;
+  final roomNumber;
 
   @override
   State<CameraScreens> createState() => _CameraScreensState();
 }
 
 class _CameraScreensState extends State<CameraScreens> {
-  late VlcPlayerController controller;
+  late VlcPlayerController controller = VlcPlayerController.network(
+    "${widget.cameraURL}",
+    hwAcc: HwAcc.full,
+    autoPlay: true,
+    options: VlcPlayerOptions(),
+  );
 
   // final VlcPlayerController _playerController - VlcPlayerController.net
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    try {
-      controller = VlcPlayerController.network(
-        "rtsp://202.44.35.76:5541/27aec28e-6181-4753-9acd-0456a75f0289/0",
-        hwAcc: HwAcc.full,
-        autoPlay: true,
-        options: VlcPlayerOptions(),
-      );
-    } on Exception catch (e) {
-      // TODO
-      print(e);
-    }
-  }
-
-  // void _initPlayer() async {
-  //   videoPlayerController = VideoPlayerController.network(
-  //       'https://32aa-202-44-35-79.ap.ngrok.io/stream/aefc49f7-e29b-4a84-bd42-7ba08e51f16d/channel/0/hls/live/index.m3u8');
-  //   await Future.wait([videoPlayerController.initialize()]);
-
-  //   chewieController = ChewieController(
-  //       videoPlayerController: videoPlayerController,
-  //       autoPlay: true,
-  //       additionalOptions: (context) {
-  //         return <OptionItem>[
-  //           OptionItem(
-  //             onTap: () => debugPrint('OPtion 1'),
-  //             iconData: Icons.chat,
-  //             title: 'Option1',
-  //           ),
-  //           OptionItem(
-  //             onTap: () => debugPrint("OPtion 2"),
-  //             iconData: Icons.share,
-  //             title: 'Option2',
-  //           )
-  //         ];
-  //       });
-  //   setState(() {});
-  // }
 
   @override
   void dispose() {
@@ -71,49 +40,68 @@ class _CameraScreensState extends State<CameraScreens> {
     return Scaffold(
         backgroundColor: const Color(0xFF1F1F39),
         appBar: SKAppBar(
-          title: "Camara Room 702",
-          subtitle: "Camara 702",
+          title: "Camara Room ${widget.roomNumber}",
+          subtitle: "Camara ${widget.roomNumber}",
           onPressed: () {
             Navigator.pop(context);
           },
           havetactions: false,
         ),
-        body: Center(
-            child: VlcPlayer(
-          controller: controller,
-          aspectRatio: 16 / 9,
-          placeholder: Center(child: CircularProgressIndicator()),
-        )
-
-            // body: Padding(
-            //   padding: const EdgeInsets.symmetric(horizontal: 20),
-            //   child: Column(children: [
-            //     Container(
-            //       height: height / 1.5,
-            //       width: width,
-            //       padding: const EdgeInsets.all(8),
-            //       color: Colors.green,
-            //       child: Column(
-            //         children: [
-            //           Container(
-            //             height: height / 2,
-            //             width: width,
-            //             color: Colors.red,
-            //           ),
-            //           const SizedBox(
-            //             height: 10,
-            //             width: 10,
-            //           ),
-            //           Container(
-            //             height: height / 8,
-            //             width: width,
-            //             color: Colors.blue,
-            //           )
-            //         ],
-            //       ),
-            //     )
-            //   ]),
-            // ),
-            ));
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color.fromARGB(255, 27, 27, 39),
+                ),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(15.0),
+                      child: Center(
+                          child: VlcPlayer(
+                        controller: controller,
+                        aspectRatio: 16 / 9,
+                        placeholder:
+                            const Center(child: CircularProgressIndicator()),
+                      )),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: height / 7,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: const Color.fromARGB(255, 27, 27, 39),
+                ),
+                child: Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Text(
+                        "Room : ",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Text("${widget.roomNumber}",
+                        style: const TextStyle(
+                            color: Color(0xFF05FF3C),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold))
+                  ],
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }

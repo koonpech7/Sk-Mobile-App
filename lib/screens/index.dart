@@ -13,7 +13,7 @@ class _IndexScreenState extends State<IndexScreen> {
   int _selectedIndex = 0;
 
   List<Widget> _widgetOptions = <Widget>[
-    IndexRoom(),
+    IndexroomsScreens(),
     NotificationScreen(),
     SettingPages()
   ];
