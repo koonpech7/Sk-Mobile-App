@@ -42,7 +42,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
   }
 
   assignData() async {
-    notificationsLog = await getDataFromApi();
+    try {
+      notificationsLog = await getDataFromApi();
+    } on Exception catch (e) {
+      // TODO
+      print("error");
+    }
     setState(() {
       isLoading = true;
     });
@@ -79,22 +84,22 @@ class _NotificationScreenState extends State<NotificationScreen> {
             : errorMsg.isNotEmpty
                 ? Center(
                     child: Text(
-                      "Error ${errorMsg}",
-                      style: TextStyle(
+                      "Error $errorMsg",
+                      style: const TextStyle(
                           fontSize: 25,
                           color: Color.fromARGB(255, 255, 17, 0),
                           fontWeight: FontWeight.bold),
                     ),
                   )
                 : notificationsLog.items.isEmpty
-                    ? Text("No data")
+                    ? const Text("No data")
                     : ListView.builder(
                         padding: const EdgeInsets.all(20.0),
                         itemCount: notificationsLog.items.length,
                         itemBuilder: ((context, index) {
                           return GestureDetector(
                             onTap: () {
-                              print(notificationsLog.items[index].id);
+                              // print(notificationsLog.items[index].id);
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -144,15 +149,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                   fontWeight: FontWeight.bold))
                                         ],
                                       ),
-                                      // subtitle: Text(
-                                      //   "Status ${notilog.items[index].status.name}"
-                                      //   // notilog.items[index].status.name
-                                      //   ,
-                                      //   style: const TextStyle(
-                                      //       fontSize: 15,
-                                      //       color:
-                                      //           Color.fromARGB(255, 0, 241, 8)),
-                                      // ),
 
                                       trailing: Column(
                                         children: [

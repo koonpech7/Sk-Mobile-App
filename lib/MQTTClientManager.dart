@@ -1,7 +1,10 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+
+import 'package:quickalert/quickalert.dart';
 
 class MQTTClientManager {
   MqttServerClient client =
@@ -36,6 +39,7 @@ class MQTTClientManager {
 
   void disconnect() {
     client.disconnect();
+    print("Disconnectttttttttttttttt");
   }
 
   void subscribe(String topic) {
@@ -44,10 +48,13 @@ class MQTTClientManager {
 
   void onConnected() {
     print('MQTTClient::Connected');
+    print("Connected");
   }
 
-  void onDisconnected() {
+  Text onDisconnected() {
+    print("Disconnect");
     print('MQTTClient::Disconnected');
+    return const Text("Disconnect");
   }
 
   void onSubscribed(String topic) {
@@ -62,9 +69,15 @@ class MQTTClientManager {
     final builder = MqttClientPayloadBuilder();
     builder.addString(message);
     client.publishMessage(topic, MqttQos.exactlyOnce, builder.payload!);
+
+    // TODO
   }
 
   Stream<List<MqttReceivedMessage<MqttMessage>>>? getMessagesStream() {
     return client.updates;
   }
+}
+
+Widget getAlert() {
+  return Text("Disconect");
 }

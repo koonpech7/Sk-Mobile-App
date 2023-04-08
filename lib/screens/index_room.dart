@@ -81,9 +81,10 @@ class _IndexRoomState extends State<IndexRoom> {
                             elevation: 0,
                             color: const Color(0xFF2F2F42),
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 20),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
                               child: ListTile(
-                                trailing: Icon(
+                                trailing: const Icon(
                                   FontAwesomeIcons.doorOpen,
                                   size: 40,
                                   color: Colors.white,

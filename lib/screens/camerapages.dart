@@ -10,12 +10,7 @@ class CameraScreens extends StatefulWidget {
 }
 
 class _CameraScreensState extends State<CameraScreens> {
-  VlcPlayerController controller = VlcPlayerController.network(
-    "rtsp://202.44.35.76:5541/27aec28e-6181-4753-9acd-0456a75f0289/0",
-    hwAcc: HwAcc.full,
-    autoPlay: true,
-    options: VlcPlayerOptions(),
-  );
+  late VlcPlayerController controller;
 
   // final VlcPlayerController _playerController - VlcPlayerController.net
 
@@ -23,6 +18,17 @@ class _CameraScreensState extends State<CameraScreens> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    try {
+      controller = VlcPlayerController.network(
+        "rtsp://202.44.35.76:5541/27aec28e-6181-4753-9acd-0456a75f0289/0",
+        hwAcc: HwAcc.full,
+        autoPlay: true,
+        options: VlcPlayerOptions(),
+      );
+    } on Exception catch (e) {
+      // TODO
+      print(e);
+    }
   }
 
   // void _initPlayer() async {

@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:testflutter/MQTTClientManager.dart';
 import 'package:testflutter/screens/screens.dart';
-import 'package:testflutter/screens/index_room.dart';
-import 'package:testflutter/screens/single_room.dart';
-import 'package:testflutter/screens/user.dart';
 
 class IndexScreen extends StatefulWidget {
   const IndexScreen({super.key});
@@ -21,7 +15,7 @@ class _IndexScreenState extends State<IndexScreen> {
   List<Widget> _widgetOptions = <Widget>[
     IndexRoom(),
     NotificationScreen(),
-    UserScreens()
+    SettingPages()
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -42,7 +36,7 @@ class _IndexScreenState extends State<IndexScreen> {
           BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.bell), label: "Notifications"),
           BottomNavigationBarItem(
-              icon: Icon(FontAwesomeIcons.gear), label: "Account"),
+              icon: Icon(FontAwesomeIcons.gear), label: "Setting"),
         ],
         currentIndex: _selectedIndex,
         backgroundColor: Color(0xff1F1F39),

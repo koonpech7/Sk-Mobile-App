@@ -7,3 +7,4 @@ export './camerapages.dart';
 export './air_conditioner.dart';
 export './lightscreen.dart';
 export './getSingelNotipage.dart';
+export './allsettingpages.dart';

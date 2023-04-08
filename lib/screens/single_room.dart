@@ -5,6 +5,8 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:testflutter/MQTTClientManager.dart';
 import 'package:testflutter/screens/screens.dart';
 
+import 'package:quickalert/quickalert.dart';
+
 import '../components/components.dart';
 import '../models/models.dart';
 
@@ -42,14 +44,28 @@ class _SingleRoomState extends State<SingleRoom> {
   void _onPressed(index) {
     switch (index) {
       case 1:
-        setState(() {
-          _doorstatus = !_doorstatus;
-          if (_doorstatus) {
+        if (_doorstatus) {
+          try {
             mqttClientManager.publishMessage(pubTopic, "off");
-          } else {
-            mqttClientManager.publishMessage(pubTopic, "on");
+            setState(() {
+              _doorstatus = !_doorstatus;
+            });
+          } on Exception catch (e) {
+            // TODO
+            print(e);
+            getError("Opps...", "Plese Check you MQTT Server");
           }
-        });
+        } else {
+          try {
+            mqttClientManager.publishMessage(pubTopic, "on");
+            setState(() {
+              _doorstatus = !_doorstatus;
+            });
+          } on Exception catch (e) {
+            // TODO
+            print(e);
+          }
+        }
         break;
       case 2:
         Navigator.push(
@@ -76,6 +92,15 @@ class _SingleRoomState extends State<SingleRoom> {
     }
 
     // print("initStatus status : " + "${room1}");
+  }
+
+  Future getError(String title, String subtext) {
+    return QuickAlert.show(
+      context: context,
+      type: QuickAlertType.error,
+      title: title,
+      text: subtext,
+    );
   }
 
   @override
