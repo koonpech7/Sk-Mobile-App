@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:testflutter/models/models.dart';
 
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
 import 'package:testflutter/screens/screens.dart';
 
@@ -110,82 +111,98 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
                           itemBuilder: (context, index) {
                             final item = items[index] as Map;
                             return GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => GetSingleRoom(
-                                              index: items[index].id,
-                                            )));
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(2.0),
-                                child: SizedBox(
-                                  height: height / 7.5,
-                                  child: Card(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20),
-                                    ),
-                                    elevation: 0,
-                                    color: const Color(0xFF2F2F42),
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 20),
-                                      child: ListTile(
-                                        contentPadding:
-                                            const EdgeInsets.symmetric(
-                                                vertical: 10),
-                                        title: Text(
-                                          item['label'],
-                                          style: const TextStyle(
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.white),
-                                          overflow: TextOverflow.ellipsis,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => GetSingleRoom(
+                                                index: items[index].id,
+                                              )));
+                                },
+                                child: Slidable(
+                                  endActionPane: ActionPane(
+                                    motion: const ScrollMotion(),
+                                    children: [
+                                      SlidableAction(
+                                        onPressed: (context) {},
+                                        backgroundColor: Color(0xFFFE4A49),
+                                        foregroundColor: Colors.white,
+                                        icon: Icons.delete,
+                                        label: 'Delete',
+                                      ),
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(2.0),
+                                    child: SizedBox(
+                                      height: height / 7.5,
+                                      child: Card(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
                                         ),
-                                        subtitle: Row(
-                                          children: [
-                                            const Text("Status   ",
-                                                style: TextStyle(
-                                                    fontSize: 18,
-                                                    color: Colors.white,
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            Text("${item['active']}",
-                                                style: const TextStyle(
-                                                    fontSize: 18,
-                                                    color: Color.fromARGB(
-                                                        255, 4, 236, 11),
-                                                    fontWeight:
-                                                        FontWeight.bold))
-                                          ],
-                                        ),
-                                        trailing: CircleAvatar(
-                                          backgroundColor:
-                                              const Color(0xFF69696F),
-                                          radius: 30,
-                                          child: IconButton(
-                                            onPressed: () {
-                                              Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          GetSingleRoom(
-                                                            index: item['id'],
-                                                          )));
-                                            },
-                                            icon: const Icon(FontAwesomeIcons
-                                                .rightToBracket),
-                                            iconSize: 30,
-                                            color: Colors.white,
+                                        elevation: 0,
+                                        color: const Color(0xFF2F2F42),
+                                        child: Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              horizontal: 20),
+                                          child: ListTile(
+                                            contentPadding:
+                                                const EdgeInsets.symmetric(
+                                                    vertical: 10),
+                                            title: Text(
+                                              item['label'],
+                                              style: const TextStyle(
+                                                  fontSize: 28,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Colors.white),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            subtitle: Row(
+                                              children: [
+                                                const Text("Status   ",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                Text("${item['active']}",
+                                                    style: const TextStyle(
+                                                        fontSize: 18,
+                                                        color: Color.fromARGB(
+                                                            255, 4, 236, 11),
+                                                        fontWeight:
+                                                            FontWeight.bold))
+                                              ],
+                                            ),
+                                            trailing: CircleAvatar(
+                                              backgroundColor:
+                                                  const Color(0xFF69696F),
+                                              radius: 30,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              GetSingleRoom(
+                                                                index:
+                                                                    item['id'],
+                                                              )));
+                                                },
+                                                icon: const Icon(
+                                                    FontAwesomeIcons
+                                                        .rightToBracket),
+                                                iconSize: 30,
+                                                color: Colors.white,
+                                              ),
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                            );
+                                ));
                           },
                         ),
                       ));
@@ -206,3 +223,72 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
     }
   }
 }
+
+
+// Padding(
+//                                 padding: const EdgeInsets.all(2.0),
+//                                 child: SizedBox(
+//                                   height: height / 7.5,
+//                                   child: Card(
+//                                     shape: RoundedRectangleBorder(
+//                                       borderRadius: BorderRadius.circular(20),
+//                                     ),
+//                                     elevation: 0,
+//                                     color: const Color(0xFF2F2F42),
+//                                     child: Padding(
+//                                       padding: const EdgeInsets.symmetric(
+//                                           horizontal: 20),
+//                                       child: ListTile(
+//                                         contentPadding:
+//                                             const EdgeInsets.symmetric(
+//                                                 vertical: 10),
+//                                         title: Text(
+//                                           item['label'],
+//                                           style: const TextStyle(
+//                                               fontSize: 28,
+//                                               fontWeight: FontWeight.bold,
+//                                               color: Colors.white),
+//                                           overflow: TextOverflow.ellipsis,
+//                                         ),
+//                                         subtitle: Row(
+//                                           children: [
+//                                             const Text("Status   ",
+//                                                 style: TextStyle(
+//                                                     fontSize: 18,
+//                                                     color: Colors.white,
+//                                                     fontWeight:
+//                                                         FontWeight.bold)),
+//                                             Text("${item['active']}",
+//                                                 style: const TextStyle(
+//                                                     fontSize: 18,
+//                                                     color: Color.fromARGB(
+//                                                         255, 4, 236, 11),
+//                                                     fontWeight:
+//                                                         FontWeight.bold))
+//                                           ],
+//                                         ),
+//                                         trailing: CircleAvatar(
+//                                           backgroundColor:
+//                                               const Color(0xFF69696F),
+//                                           radius: 30,
+//                                           child: IconButton(
+//                                             onPressed: () {
+//                                               Navigator.push(
+//                                                   context,
+//                                                   MaterialPageRoute(
+//                                                       builder: (context) =>
+//                                                           GetSingleRoom(
+//                                                             index: item['id'],
+//                                                           )));
+//                                             },
+//                                             icon: const Icon(FontAwesomeIcons
+//                                                 .rightToBracket),
+//                                             iconSize: 30,
+//                                             color: Colors.white,
+//                                           ),
+//                                         ),
+//                                       ),
+//                                     ),
+//                                   ),
+//                                 ),
+//                               ),
