@@ -144,31 +144,48 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           children: [
                             Row(
                               children: [
-                                Text(
-                                  "Room " "${roomsingle.label}",
-                                  style: const TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
+                                Container(
+                                  width: width / 1.7,
+                                  child: Text(
+                                    "${roomsingle.label}",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                                 const Spacer(),
                                 Row(
                                   children: [
-                                    const Text(
-                                      "Status : ",
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                    Text(
-                                      doorstatus ? "Close" : "Open",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: doorstatus
-                                            ? const Color(0xFFFF0505)
-                                            : const Color(0xFF05FF3C),
-                                      ),
+                                    Container(
+                                      alignment: Alignment.topRight,
+                                      height: height / 24,
+                                      width: width / 5,
+                                      child: OutlinedButton(
+                                          style: OutlinedButton.styleFrom(
+                                            side: const BorderSide(
+                                                width: 1.0,
+                                                color: Colors.white),
+                                          ),
+                                          onPressed: () {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        UpdateRooms(
+                                                            roomsname:
+                                                                roomsingle
+                                                                    .label,
+                                                            index: roomsingle
+                                                                .id)));
+                                          },
+                                          child: const Text(
+                                            "Edit",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 20),
+                                          )),
                                     ),
                                   ],
                                 )

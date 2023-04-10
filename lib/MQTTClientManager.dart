@@ -128,7 +128,3 @@ class MQTTClientManager {
     return client.updates;
   }
 }
-
-Widget getAlert() {
-  return Text("Disconect");
-}

@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -20,7 +22,8 @@ class IndexroomsScreens extends StatefulWidget {
 }
 
 class _IndexroomsScreensState extends State<IndexroomsScreens> {
-  late AllRoomsModels allrooms;
+  List items = [];
+  // late AllRoomsModels allrooms;
   // isLoading ?
   bool isLoading = false;
   // error msg?
@@ -30,23 +33,25 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
 
   //Api Call
 
-  Future<AllRoomsModels> getDataFromApi() async {
-    Uri url = Uri.parse("http://202.44.35.76:9091/api/rooms?page=${pages}");
-    var response = await http.get(url);
+  // Future<Void> getDataFromApi() async {
+  //   Uri url = Uri.parse("http://202.44.35.76:9091/api/rooms?page=${pages}");
+  //   var response = await http.get(url);
 
-    if (response.statusCode == HttpStatus.ok) {
-      //ok
-      AllRoomsModels allroom = allRoomsModelsFromJson(response.body);
-      return allroom;
-    } else {
-      errorMsg = "${response.statusCode}: ${response.body}";
-      return AllRoomsModels(item: [], page: 0, totalCount: 0, totalPages: 0);
-    }
-  }
+  //   if (response.statusCode == HttpStatus.ok) {
+  //     final json = jsonDecode(response.body) as Map;
+  //     final result = json['items'];
+  //     //ok
+  //     // AllRoomsModels allroom = allRoomsModelsFromJson(response.body);
+  //     // return allroom;
+  //   } else {
+  //     errorMsg = "${response.statusCode}: ${response.body}";
+  //     // return AllRoomsModels(item: [], page: 0, totalCount: 0, totalPages: 0);
+  //   }
+  // }
 
   assignData() async {
     try {
-      allrooms = await getDataFromApi();
+      fethData();
     } on Exception catch (e) {
       // TODO
       print("error");
@@ -61,6 +66,7 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
     // TODO: implement initState
     // cal api
     assignData();
+
     super.initState();
   }
 
@@ -94,88 +100,109 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
                           fontWeight: FontWeight.bold),
                     ),
                   )
-                : allrooms.item.isEmpty
-                    ? const Text("No data")
-                    : ListView.builder(
-                        padding: const EdgeInsets.all(20.0),
-                        itemCount: allrooms.item.length,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => GetSingleRoom(
-                                            index: allrooms.item[index].id,
-                                          )));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.all(2.0),
-                              child: SizedBox(
-                                height: height / 7.5,
-                                child: Card(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  elevation: 0,
-                                  color: const Color(0xFF2F2F42),
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: ListTile(
-                                      contentPadding:
-                                          const EdgeInsets.symmetric(
-                                              vertical: 10),
-                                      title: Text(
-                                        allrooms.item[index].label,
-                                        style: const TextStyle(
-                                            fontSize: 28,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white),
-                                      ),
-                                      subtitle: Row(
-                                        children: [
-                                          const Text("Status   ",
-                                              style: TextStyle(
-                                                  fontSize: 18,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold)),
-                                          Text("${allrooms.item[index].active}",
-                                              style: const TextStyle(
-                                                  fontSize: 18,
-                                                  color: Color.fromARGB(
-                                                      255, 4, 236, 11),
-                                                  fontWeight: FontWeight.bold))
-                                        ],
-                                      ),
-                                      trailing: CircleAvatar(
-                                        backgroundColor:
-                                            const Color(0xFF69696F),
-                                        radius: 30,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        GetSingleRoom(
-                                                          index: allrooms
-                                                              .item[index].id,
-                                                        )));
-                                          },
-                                          icon: const Icon(
-                                              FontAwesomeIcons.rightToBracket),
-                                          iconSize: 30,
-                                          color: Colors.white,
+                : items.isEmpty
+                    ? const Center(child: CircularProgressIndicator())
+                    : RefreshIndicator(
+                        onRefresh: fethData,
+                        child: ListView.builder(
+                          padding: const EdgeInsets.all(20.0),
+                          itemCount: items.length,
+                          itemBuilder: (context, index) {
+                            final item = items[index] as Map;
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => GetSingleRoom(
+                                              index: items[index].id,
+                                            )));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: SizedBox(
+                                  height: height / 7.5,
+                                  child: Card(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    elevation: 0,
+                                    color: const Color(0xFF2F2F42),
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 20),
+                                      child: ListTile(
+                                        contentPadding:
+                                            const EdgeInsets.symmetric(
+                                                vertical: 10),
+                                        title: Text(
+                                          item['label'],
+                                          style: const TextStyle(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.white),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        subtitle: Row(
+                                          children: [
+                                            const Text("Status   ",
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                            Text("${item['active']}",
+                                                style: const TextStyle(
+                                                    fontSize: 18,
+                                                    color: Color.fromARGB(
+                                                        255, 4, 236, 11),
+                                                    fontWeight:
+                                                        FontWeight.bold))
+                                          ],
+                                        ),
+                                        trailing: CircleAvatar(
+                                          backgroundColor:
+                                              const Color(0xFF69696F),
+                                          radius: 30,
+                                          child: IconButton(
+                                            onPressed: () {
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          GetSingleRoom(
+                                                            index: item['id'],
+                                                          )));
+                                            },
+                                            icon: const Icon(FontAwesomeIcons
+                                                .rightToBracket),
+                                            iconSize: 30,
+                                            color: Colors.white,
+                                          ),
                                         ),
                                       ),
                                     ),
                                   ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
+                            );
+                          },
+                        ),
                       ));
+  }
+
+  Future<void> fethData() async {
+    Uri url = Uri.parse("http://202.44.35.76:9091/api/rooms?page=${pages}");
+    var response = await http.get(url);
+
+    if (response.statusCode == HttpStatus.ok) {
+      final json = jsonDecode(response.body) as Map;
+      final result = json['items'];
+      setState(() {
+        items = result;
+      });
+    } else {
+      errorMsg = "${response.statusCode}: ${response.body}";
+    }
   }
 }

@@ -15,7 +15,8 @@ class _IndexScreenState extends State<IndexScreen> {
   List<Widget> _widgetOptions = <Widget>[
     IndexroomsScreens(),
     NotificationScreen(),
-    SettingPages()
+    SettingPages(),
+    CreateRooms()
   ];
   void _onItemTapped(int index) {
     setState(() {
@@ -37,6 +38,8 @@ class _IndexScreenState extends State<IndexScreen> {
               icon: Icon(FontAwesomeIcons.bell), label: "Notifications"),
           BottomNavigationBarItem(
               icon: Icon(FontAwesomeIcons.gear), label: "Setting"),
+          BottomNavigationBarItem(
+              icon: Icon(FontAwesomeIcons.restroom), label: "Create Room"),
         ],
         currentIndex: _selectedIndex,
         backgroundColor: Color(0xff1F1F39),

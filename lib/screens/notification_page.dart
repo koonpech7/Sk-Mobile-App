@@ -25,10 +25,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
   // error msg?
   String errorMsg = "";
 
+  int pages = 0;
+
   //Api Call
 
   Future<NotificationLog> getDataFromApi() async {
-    Uri url = Uri.parse("http://202.44.35.76:9091/api/reports/");
+    Uri url = Uri.parse("http://202.44.35.76:9091/api/reports?page=${pages}");
     var response = await http.get(url);
 
     if (response.statusCode == HttpStatus.ok) {
@@ -87,12 +89,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       "Error $errorMsg",
                       style: const TextStyle(
                           fontSize: 25,
-                          color: Color.fromARGB(255, 255, 17, 0),
+                          color: Color.fromARGB(255, 255, 255, 255),
                           fontWeight: FontWeight.bold),
                     ),
                   )
                 : notificationsLog.items.isEmpty
-                    ? const Text("No data")
+                    ? const Center(
+                        child: Text(
+                        "No data",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 25,
+                            fontWeight: FontWeight.bold),
+                      ))
                     : ListView.builder(
                         padding: const EdgeInsets.all(20.0),
                         itemCount: notificationsLog.items.length,
