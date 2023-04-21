@@ -11,6 +11,7 @@ import 'package:testflutter/models/models.dart';
 import 'package:http/http.dart' as http;
 import 'package:quickalert/quickalert.dart';
 import 'package:testflutter/screens/screens.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UpdateRooms extends StatefulWidget {
   const UpdateRooms({
@@ -45,9 +46,12 @@ class _UpdateRoomsState extends State<UpdateRooms> {
   String errorMsg = "";
 
   Future<RoomsgetSingle> getDataFromApi() async {
-    Uri url = Uri.parse('http://202.44.35.76:9091/api/rooms/${widget.index}');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
+    Uri url = Uri.parse(
+        'http://202.44.35.76:9091/api/dashboard/rooms/${widget.index}');
 
-    var response = await http.get(url);
+    var response = await http.get(url, headers: {'X-Token': '$token'});
 
     if (response.statusCode == HttpStatus.ok) {
       //ok
@@ -369,6 +373,8 @@ class _UpdateRoomsState extends State<UpdateRooms> {
   }
 
   Future<void> summitupdateData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
     if (roomName.text.isEmpty || camUrl.text.isEmpty) {
       return QuickAlert.show(
         context: context,
@@ -403,13 +409,13 @@ class _UpdateRoomsState extends State<UpdateRooms> {
     };
 
     // call api post method
-    Uri url =
-        Uri.parse("http://202.44.35.76:9091/api/rooms/edit/${widget.index}");
-    var response = await http.put(url,
-        body: jsonEncode(body), headers: {'Content-Type': 'application/json'});
+    Uri url = Uri.parse(
+        "http://202.44.35.76:9091/api/dashboard/rooms/edit/${widget.index}");
+    var response = await http
+        .put(url, body: jsonEncode(body), headers: {'X-Token': '$token'});
 
-    print(response.statusCode);
-    print(response.body);
+    // print(response.statusCode);
+    // print(response.body);
 
     ClearTextfield();
 
@@ -420,13 +426,6 @@ class _UpdateRoomsState extends State<UpdateRooms> {
         type: QuickAlertType.success,
         title: 'Success',
         text: 'You room update success',
-        // onConfirmBtnTap: () {
-        //   // Navigator.push(
-        //   //   context,
-        //   //   MaterialPageRoute(
-        //   //       builder: (context) => GetSingleRoom(index: widget.index)),
-        //   // );
-        // },
       );
     } else {
       return QuickAlert.show(
@@ -434,13 +433,6 @@ class _UpdateRoomsState extends State<UpdateRooms> {
         type: QuickAlertType.error,
         title: 'Oopss...',
         text: 'Please check you server',
-        // onConfirmBtnTap: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => GetSingleRoom(index: widget.index)),
-        //   );
-        // },
       );
     }
   }

@@ -7,7 +7,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   var token = prefs.getString("X-Token");
-  print(token);
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: token == null ? LoginPages() : IndexScreen(),

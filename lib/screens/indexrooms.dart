@@ -132,8 +132,42 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
                                     motion: const ScrollMotion(),
                                     children: [
                                       SlidableAction(
-                                        onPressed: (context) {},
-                                        backgroundColor: Color(0xFFFE4A49),
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        onPressed: (context) {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      UpdateRooms(
+                                                        index: item['id'],
+                                                        roomsname:
+                                                            item['label'],
+                                                      )));
+                                        },
+                                        backgroundColor:
+                                            Color.fromARGB(255, 19, 112, 252),
+                                        foregroundColor: Colors.white,
+                                        icon: Icons.edit,
+                                        label: 'Edit',
+                                      ),
+                                      SizedBox(width: width / 90),
+                                      SlidableAction(
+                                        borderRadius:
+                                            BorderRadius.circular(12.0),
+                                        onPressed: (context) async {
+                                          SharedPreferences prefs =
+                                              await SharedPreferences
+                                                  .getInstance();
+                                          var token =
+                                              prefs.getString('X-Token');
+                                          Uri url = Uri.parse(
+                                              "http://202.44.35.76:9091/api/dashboard/rooms/delete/${item['id']}");
+                                          var response = await http.delete(url,
+                                              headers: {'X-Token': '$token'});
+                                        },
+                                        backgroundColor:
+                                            const Color(0xFFFE4A49),
                                         foregroundColor: Colors.white,
                                         icon: Icons.delete,
                                         label: 'Delete',
@@ -233,73 +267,12 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
       errorMsg = "${response.statusCode}: ${response.body}";
     }
   }
+
+  // Future<void> deleteData() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   var token = prefs.getString('X-Token');
+  //   Uri url =
+  //       Uri.parse("http://202.44.35.76:9091/api/dashboard/rooms?page=${pages}");
+  //   var response = await http.delete(url, headers: {'X-Token': '$token'});
+  // }
 }
-
-
-// Padding(
-//                                 padding: const EdgeInsets.all(2.0),
-//                                 child: SizedBox(
-//                                   height: height / 7.5,
-//                                   child: Card(
-//                                     shape: RoundedRectangleBorder(
-//                                       borderRadius: BorderRadius.circular(20),
-//                                     ),
-//                                     elevation: 0,
-//                                     color: const Color(0xFF2F2F42),
-//                                     child: Padding(
-//                                       padding: const EdgeInsets.symmetric(
-//                                           horizontal: 20),
-//                                       child: ListTile(
-//                                         contentPadding:
-//                                             const EdgeInsets.symmetric(
-//                                                 vertical: 10),
-//                                         title: Text(
-//                                           item['label'],
-//                                           style: const TextStyle(
-//                                               fontSize: 28,
-//                                               fontWeight: FontWeight.bold,
-//                                               color: Colors.white),
-//                                           overflow: TextOverflow.ellipsis,
-//                                         ),
-//                                         subtitle: Row(
-//                                           children: [
-//                                             const Text("Status   ",
-//                                                 style: TextStyle(
-//                                                     fontSize: 18,
-//                                                     color: Colors.white,
-//                                                     fontWeight:
-//                                                         FontWeight.bold)),
-//                                             Text("${item['active']}",
-//                                                 style: const TextStyle(
-//                                                     fontSize: 18,
-//                                                     color: Color.fromARGB(
-//                                                         255, 4, 236, 11),
-//                                                     fontWeight:
-//                                                         FontWeight.bold))
-//                                           ],
-//                                         ),
-//                                         trailing: CircleAvatar(
-//                                           backgroundColor:
-//                                               const Color(0xFF69696F),
-//                                           radius: 30,
-//                                           child: IconButton(
-//                                             onPressed: () {
-//                                               Navigator.push(
-//                                                   context,
-//                                                   MaterialPageRoute(
-//                                                       builder: (context) =>
-//                                                           GetSingleRoom(
-//                                                             index: item['id'],
-//                                                           )));
-//                                             },
-//                                             icon: const Icon(FontAwesomeIcons
-//                                                 .rightToBracket),
-//                                             iconSize: 30,
-//                                             color: Colors.white,
-//                                           ),
-//                                         ),
-//                                       ),
-//                                     ),
-//                                   ),
-//                                 ),
-//                               ),

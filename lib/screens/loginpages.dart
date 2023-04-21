@@ -155,7 +155,7 @@ class _LoginPagesState extends State<LoginPages> {
         context: context,
         type: QuickAlertType.success,
         title: 'Success',
-        text: 'You room create success',
+        text: 'Welcome to SK Application',
         onConfirmBtnTap: () {
           Navigator.push(
             context,
