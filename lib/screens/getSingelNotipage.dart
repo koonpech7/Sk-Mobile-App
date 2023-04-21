@@ -8,6 +8,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../components/appbar.dart';
 import '../models/notificationgetSingel.dart';
 
@@ -31,9 +33,12 @@ class _GetSingelNotiState extends State<GetSingelNoti> {
   String errorMsg = "";
 
   Future<NotificationgetSingle> getDataFromApi() async {
-    Uri url = Uri.parse('http://202.44.35.76:9091/api/reports/${widget.index}');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
+    Uri url = Uri.parse(
+        'http://202.44.35.76:9091/api/dashboard/reports/${widget.index}');
     // Uri url = Uri.parse();
-    var response = await http.get(url);
+    var response = await http.get(url, headers: {'X-Token': '$token'});
 
     if (response.statusCode == HttpStatus.ok) {
       //ok
@@ -71,19 +76,19 @@ class _GetSingelNotiState extends State<GetSingelNoti> {
     });
   }
 
-  Widget ConvrenUrl(
-    url,
-  ) {
-    String str = url;
-    int startIndex = 23;
-    String result = str.substring(startIndex);
-    Uint8List bytesImage = const Base64Decoder().convert(result);
-    return Image.memory(
-      bytesImage,
-      width: 600,
-      height: 300,
-    );
-  }
+  // Widget ConvrenUrl(
+  //   url,
+  // ) {
+  //   String str = url;
+  //   int startIndex = 23;
+  //   String result = str.substring(startIndex);
+  //   Uint8List bytesImage = const Base64Decoder().convert(result);
+  //   return Image.memory(
+  //     bytesImage,
+  //     width: 600,
+  //     height: 300,
+  //   );
+  // }
 
   @override
   void initState() {
@@ -201,9 +206,9 @@ class _GetSingelNotiState extends State<GetSingelNoti> {
                       const TextStyle(fontSize: 18, color: Color(0xFF05FF3C)))
             ],
           ),
-          ConvrenUrl(
-            notisigel.image,
-          )
+          // ConvrenUrl(
+          //   notisigel.image,
+          // )
         ],
       );
     } else {

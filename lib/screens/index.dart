@@ -12,11 +12,11 @@ class IndexScreen extends StatefulWidget {
 class _IndexScreenState extends State<IndexScreen> {
   int _selectedIndex = 0;
 
-  List<Widget> _widgetOptions = <Widget>[
-    IndexroomsScreens(),
-    NotificationScreen(),
-    SettingPages(),
-    CreateRooms()
+  final List<Widget> _widgetOptions = <Widget>[
+    const IndexroomsScreens(),
+    const NotificationScreen(),
+    const SettingPages(),
+    const CreateRooms()
   ];
   void _onItemTapped(int index) {
     setState(() {

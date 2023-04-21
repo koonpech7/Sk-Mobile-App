@@ -10,6 +10,7 @@ import 'package:testflutter/components/appbar.dart';
 // package lib
 import 'package:http/http.dart' as http;
 import 'package:quickalert/quickalert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateRooms extends StatefulWidget {
   const CreateRooms({super.key});
@@ -253,7 +254,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                       style: OutlinedButton.styleFrom(
                         side: const BorderSide(width: 1.0, color: Colors.white),
                       ),
-                      onPressed: summitData,
+                      onPressed: submittData,
                       child: const Text(
                         "Create",
                         style: TextStyle(color: Colors.white, fontSize: 20),
@@ -270,7 +271,10 @@ class _CreateRoomsState extends State<CreateRooms> {
     );
   }
 
-  Future<void> summitData() async {
+  Future<void> submittData() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
+
     if (roomName.text.isEmpty || camUrl.text.isEmpty) {
       return QuickAlert.show(
         context: context,
@@ -306,9 +310,9 @@ class _CreateRoomsState extends State<CreateRooms> {
     };
 
     // call api post method
-    Uri url = Uri.parse("http://202.44.35.76:9091/api/rooms/new");
-    var response = await http.post(url,
-        body: jsonEncode(body), headers: {'Content-Type': 'application/json'});
+    Uri url = Uri.parse("http://202.44.35.76:9091/api/dashboard/rooms/new");
+    var response = await http
+        .post(url, body: jsonEncode(body), headers: {'X-Token': '$token'});
 
     // if success
     if (response.statusCode == 200) {

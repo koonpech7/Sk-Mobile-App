@@ -1,22 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:testflutter/screens/loginpages.dart';
 import 'package:testflutter/screens/screens.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const SKAPP());
-}
-
-class SKAPP extends StatelessWidget {
-  const SKAPP({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'SK Mobile App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const IndexScreen(),
-    );
-  }
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var token = prefs.getString("X-Token");
+  print(token);
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: token == null ? LoginPages() : IndexScreen(),
+  ));
 }

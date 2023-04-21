@@ -16,6 +16,8 @@ import 'package:testflutter/screens/screens.dart';
 
 import 'package:http/http.dart' as http;
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 class GetSingleRoom extends StatefulWidget {
   const GetSingleRoom({super.key, required this.index});
 
@@ -47,9 +49,12 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
   String errorMsg = "";
 
   Future<RoomsgetSingle> getDataFromApi() async {
-    Uri url = Uri.parse('http://202.44.35.76:9091/api/rooms/${widget.index}');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
+    Uri url = Uri.parse(
+        'http://202.44.35.76:9091/api/dashboard/rooms/${widget.index}');
 
-    var response = await http.get(url);
+    var response = await http.get(url, headers: {'X-Token': '$token'});
 
     if (response.statusCode == HttpStatus.ok) {
       //ok
@@ -144,10 +149,10 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           children: [
                             Row(
                               children: [
-                                Container(
+                                SizedBox(
                                   width: width / 1.7,
                                   child: Text(
-                                    "${roomsingle.label}",
+                                    roomsingle.label,
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                         fontSize: 25,

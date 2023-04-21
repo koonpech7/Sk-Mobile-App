@@ -7,8 +7,7 @@ import 'package:testflutter/models/models.dart';
 
 import 'package:http/http.dart' as http;
 import 'package:testflutter/screens/screens.dart';
-
-import 'getSingelNotipage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -25,13 +24,18 @@ class _NotificationScreenState extends State<NotificationScreen> {
   // error msg?
   String errorMsg = "";
 
-  int pages = 0;
+  int pages = 1;
 
   //Api Call
 
   Future<NotificationLog> getDataFromApi() async {
-    Uri url = Uri.parse("http://202.44.35.76:9091/api/reports?page=${pages}");
-    var response = await http.get(url);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
+    Uri url =
+        Uri.parse("http://202.44.35.76:9091/api/dashboard/reports?page=$pages");
+    var response = await http.get(url, headers: {'X-Token': token!});
+
+    // print(token);
 
     if (response.statusCode == HttpStatus.ok) {
       //ok

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:testflutter/components/components.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:testflutter/screens/loginpages.dart';
 
 class SettingPages extends StatefulWidget {
   const SettingPages({super.key});
@@ -9,6 +11,20 @@ class SettingPages extends StatefulWidget {
 }
 
 class _SettingPagesState extends State<SettingPages> {
+  late SharedPreferences prefs;
+
+  initSaredPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+    // print(prefs.get('X-Token'));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    initSaredPreferences();
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -16,6 +32,16 @@ class _SettingPagesState extends State<SettingPages> {
 
     return Scaffold(
       backgroundColor: const Color(0xFF1F1F39),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          prefs.remove('X-Token');
+          print(prefs.getString('X-Token'));
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LoginPages()),
+          );
+        },
+      ),
       appBar: SKAppBar(
         title: "All Setting",
         onPressed: () {

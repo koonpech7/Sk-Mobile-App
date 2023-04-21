@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -14,6 +13,8 @@ import 'package:testflutter/models/models.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:http/http.dart' as http;
 import 'package:testflutter/screens/screens.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class IndexroomsScreens extends StatefulWidget {
   const IndexroomsScreens({super.key});
@@ -30,7 +31,14 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
   // error msg?
   String errorMsg = "";
 
-  int pages = 0;
+  int pages = 1;
+
+  // late SharedPreferences prefs;
+
+  // initSaredPreferences() async {
+  //   prefs = await SharedPreferences.getInstance();
+  //   // print(prefs.get('X-Token'));
+  // }
 
   //Api Call
 
@@ -67,7 +75,7 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
     // TODO: implement initState
     // cal api
     assignData();
-
+    // initSaredPreferences();
     super.initState();
   }
 
@@ -112,12 +120,12 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
                             final item = items[index] as Map;
                             return GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => GetSingleRoom(
-                                                index: items[index].id,
-                                              )));
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => GetSingleRoom(
+                                  //               index: items[index].id,
+                                  //             )));
                                 },
                                 child: Slidable(
                                   endActionPane: ActionPane(
@@ -209,8 +217,11 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
   }
 
   Future<void> fethData() async {
-    Uri url = Uri.parse("http://202.44.35.76:9091/api/rooms?page=${pages}");
-    var response = await http.get(url);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
+    Uri url =
+        Uri.parse("http://202.44.35.76:9091/api/dashboard/rooms?page=${pages}");
+    var response = await http.get(url, headers: {'X-Token': '$token'});
 
     if (response.statusCode == HttpStatus.ok) {
       final json = jsonDecode(response.body) as Map;
