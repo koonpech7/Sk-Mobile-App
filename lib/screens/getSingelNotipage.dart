@@ -212,7 +212,151 @@ class _GetSingelNotiState extends State<GetSingelNoti> {
         ],
       );
     } else {
-      return Text("Not Detect");
+      return Column(
+        children: [
+          Row(
+            children: [
+              const Text("Room Name ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              Text(notisigel.roomLabel,
+                  style:
+                      const TextStyle(fontSize: 18, color: Color(0xFF05FF3C)))
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Report Date ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              Text(notisigel.reportDate,
+                  style:
+                      const TextStyle(fontSize: 18, color: Color(0xFF05FF3C)))
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Report Time ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              Text(notisigel.reportTime,
+                  style:
+                      const TextStyle(fontSize: 18, color: Color(0xFF05FF3C)))
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Door Status ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              checkStatus(notisigel.doorStatus)
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Air Status ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              checkStatus(notisigel.airStatus)
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Lamp 1 Status ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              checkStatus(notisigel.lamp1Status)
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Lamp 2 Status ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              checkStatus(notisigel.lamp2Status)
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Lamp 3 Status ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              checkStatus(notisigel.lamp3Status)
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Lamp 4 Status ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              checkStatus(notisigel.lamp4Status)
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Lamp 5 Status ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              checkStatus(notisigel.lamp5Status)
+            ],
+          ),
+          const SizedBox(
+            height: 15,
+          ),
+          Row(
+            children: [
+              const Text("Lamp 6 Status ",
+                  style: TextStyle(fontSize: 18, color: Colors.white)),
+              const Spacer(),
+              checkStatus(notisigel.lamp6Status)
+            ],
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          // ConvrenUrl(
+          //   notisigel.image,
+          // )
+        ],
+      );
+    }
+  }
+
+  checkStatus(String status) {
+    if (status == "true") {
+      return const Text("Close",
+          style:
+              TextStyle(fontSize: 18, color: Color.fromARGB(255, 255, 17, 0)));
+    } else {
+      return const Text("Open",
+          style: TextStyle(fontSize: 18, color: Color(0xFF05FF3C)));
     }
   }
 }

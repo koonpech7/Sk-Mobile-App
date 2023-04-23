@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -6,6 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:testflutter/MQTTClientManager.dart';
+import 'package:intl/intl.dart';
 
 import 'package:quickalert/quickalert.dart';
 
@@ -29,6 +31,10 @@ class GetSingleRoom extends StatefulWidget {
 
 class _GetSingleRoomState extends State<GetSingleRoom> {
   MQTTClientManager mqttClientManager = MQTTClientManager();
+
+// date and timestemp
+  String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
+  String tdata = DateFormat("HH:mm:ss").format(DateTime.now());
 
   String doorTopic = "";
 
@@ -110,6 +116,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       backgroundColor: const Color(0xFF1F1F39),
       appBar: SKAppBar(
@@ -211,11 +218,12 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                               doorstatus = !doorstatus;
                               if (doorstatus) {
                                 mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicDoor, "off");
+                                    roomsingle.mqttTopicDoor, "Lock");
                               } else {
                                 mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp1, "on");
+                                    roomsingle.mqttTopicDoor, "UnLock");
                               }
+                              sendDataLog();
                             });
                           }),
                       const SizedBox(
@@ -235,6 +243,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                                 mqttClientManager.publishMessage(
                                     roomsingle.mqttTopicAir, "on");
                               }
+                              sendDataLog();
                             });
                           }),
                       const SizedBox(height: 10),
@@ -252,6 +261,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                               mqttClientManager.publishMessage(
                                   roomsingle.mqttTopicLamp1, "on");
                             }
+                            sendDataLog();
                           });
                         },
                       ),
@@ -272,6 +282,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                                 mqttClientManager.publishMessage(
                                     roomsingle.mqttTopicLamp2, "on");
                               }
+                              sendDataLog();
                             });
                           }),
                       const SizedBox(
@@ -291,6 +302,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                                 mqttClientManager.publishMessage(
                                     roomsingle.mqttTopicLamp3, "on");
                               }
+                              sendDataLog();
                             });
                           }),
                       const SizedBox(height: 10),
@@ -308,6 +320,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                                 mqttClientManager.publishMessage(
                                     roomsingle.mqttTopicLamp4, "on");
                               }
+                              sendDataLog();
                             });
                           }),
                       const SizedBox(height: 10),
@@ -325,6 +338,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                                 mqttClientManager.publishMessage(
                                     roomsingle.mqttTopicLamp5, "on");
                               }
+                              sendDataLog();
                             });
                           }),
                       const SizedBox(height: 10),
@@ -342,6 +356,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                                 mqttClientManager.publishMessage(
                                     roomsingle.mqttTopicLamp6, "on");
                               }
+                              sendDataLog();
                             });
                           }),
                       const SizedBox(height: 10),
@@ -356,9 +371,9 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           children: [
                             Row(
                               children: [
-                                Text(
+                                const Text(
                                   "Camera ",
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                       fontSize: 20,
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),
@@ -402,14 +417,45 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
     );
   }
 
+  Future<void> sendDataLog() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
+
+    // set data for api body
+
+    final body = {
+      "room_label": roomsingle.label,
+      "report_time": "$tdata",
+      "report_date": "$cdate",
+      "status": "Application",
+      "lamp_1_status": "$lamp1status",
+      "lamp_2_status": "$lamp2status",
+      "lamp_3_status": "$lamp3status",
+      "lamp_4_status": "$lamp4status",
+      "lamp_5_status": "$lamp5status",
+      "lamp_6_status": "$lamp6status",
+      "door_status": "$doorstatus",
+      "air_status": "$airstatus"
+    };
+
+    // call api post method
+    Uri url = Uri.parse("http://202.44.35.76:9091/api/dashboard/reports/new");
+    var response = await http
+        .post(url, body: jsonEncode(body), headers: {'X-Token': '$token'});
+
+    // if success
+  }
+
   Future<void> setupMqttClient() async {
     await mqttClientManager.connect();
-    mqttClientManager.subscribe("/Update_Switch2");
+    mqttClientManager.subscribe("/Update_Door44-702");
     mqttClientManager.subscribe("/Update_Switch1");
+    mqttClientManager.subscribe("/Update_Switch2");
     mqttClientManager.subscribe("/Update_Switch3");
     mqttClientManager.subscribe("/Update_Switch4");
     mqttClientManager.subscribe("/Update_Switch5");
     mqttClientManager.subscribe("/Update_Switch6");
+    mqttClientManager.subscribe("/Update_Temp");
   }
 
   void setupUpdatesListener() {
@@ -468,6 +514,14 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
       } else if (c[0].topic == "/Update_Switch6" && publicMess == "Off") {
         setState(() {
           lamp6status = true;
+        });
+      } else if (c[0].topic == "/Update_Door44-702" && publicMess == "Lock") {
+        setState(() {
+          doorstatus = true;
+        });
+      } else if (c[0].topic == "/Update_Door44-702" && publicMess == "unlock") {
+        setState(() {
+          doorstatus = false;
         });
       }
     });

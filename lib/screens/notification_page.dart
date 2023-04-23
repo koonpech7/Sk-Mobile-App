@@ -139,7 +139,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           const EdgeInsets.symmetric(
                                               vertical: 10),
                                       title: Text(
-                                        notificationsLog.items[index].roomLabel,
+                                        overflow: TextOverflow.ellipsis,
+                                        "Rooms "
+                                        "${notificationsLog.items[index].roomLabel}",
                                         style: const TextStyle(
                                             fontSize: 28,
                                             fontWeight: FontWeight.bold,
@@ -162,13 +164,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                   fontWeight: FontWeight.bold))
                                         ],
                                       ),
-
                                       trailing: Column(
                                         children: [
                                           Text(
                                             notificationsLog
                                                 .items[index].reportTime,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 18,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white),
@@ -179,22 +180,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                           Text(
                                             notificationsLog
                                                 .items[index].reportDate,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 16,
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white),
                                           ),
                                         ],
                                       ),
-                                      // trailing: Text(
-                                      //   notificationsLog
-                                      //       .items[index].reportTime,
-                                      //   style: const TextStyle(
-                                      //       fontSize: 20,
-                                      //       fontWeight: FontWeight.bold,
-                                      //       color: Color.fromARGB(
-                                      //           255, 163, 162, 162)),
-                                      // ),
                                     ),
                                   ),
                                 ),
@@ -203,107 +195,4 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           );
                         })));
   }
-
-  // Widget getMyrow(int index) {
-  //   return GestureDetector(
-  //     onTap: () {},
-  //     child: Padding(
-  //       padding: const EdgeInsets.all(2.0),
-  //       child: SizedBox(
-  //         height: 60,
-  //         child: Card(
-  //           shape: RoundedRectangleBorder(
-  //             borderRadius: BorderRadius.circular(20),
-  //           ),
-  //           elevation: 0,
-  //           color: const Color(0xFF2F2F42),
-  //           child: Padding(
-  //             padding: const EdgeInsets.symmetric(horizontal: 20),
-  //             child: ListTile(
-  //               contentPadding: const EdgeInsets.symmetric(vertical: 10),
-  //               title: Text(
-  //                 notilog.items[index].roomLabel,
-  //                 style: const TextStyle(
-  //                     fontSize: 25,
-  //                     fontWeight: FontWeight.bold,
-  //                     color: Colors.white),
-  //               ),
-  //               subtitle: Text(
-  //                 "${notilog.items[index].personCount}",
-  //                 style: TextStyle(
-  //                   fontSize: 15,
-  //                 ),
-  //               ),
-  //               trailing: Text(
-  //                 notilog.items[index].reportTime,
-  //                 style: const TextStyle(
-  //                     fontSize: 15,
-  //                     fontWeight: FontWeight.bold,
-  //                     color: Colors.white),
-  //               ),
-  //             ),
-  //           ),
-  //         ),
-  //       ),
-  //     ),
-  //   );
 }
-
-// Padding(
-//         padding: const EdgeInsets.symmetric(horizontal: 20),
-//         child: SizedBox(
-//           height: height / 0.8,
-//           child: ListView.builder(
-//             // physics: const NeverScrollableScrollPhysics(),
-//             itemCount: notification.length,
-//             itemBuilder: (context, index) {
-//               return GestureDetector(
-//                 onTap: () {},
-//                 child: Padding(
-//                   padding: const EdgeInsets.all(2.0),
-//                   child: SizedBox(
-//                     height: height / 7.5,
-//                     child: Card(
-//                       shape: RoundedRectangleBorder(
-//                         borderRadius: BorderRadius.circular(20),
-//                       ),
-//                       elevation: 0,
-//                       color: const Color(0xFF2F2F42),
-//                       child: Padding(
-//                         padding: const EdgeInsets.symmetric(horizontal: 20),
-//                         child: ListTile(
-//                           contentPadding:
-//                               const EdgeInsets.symmetric(vertical: 10),
-//                           title: Text(
-//                             "${notification[index].name}",
-//                             style: const TextStyle(
-//                                 fontSize: 25,
-//                                 fontWeight: FontWeight.bold,
-//                                 color: Colors.white),
-//                           ),
-//                           subtitle: Text(
-//                             notification[index].status! ? "close" : "open",
-//                             style: TextStyle(
-//                               fontSize: 15,
-//                               color: notification[index].status!
-//                                   ? const Color(0xFFFF0505)
-//                                   : const Color(0xFF05FF3C),
-//                             ),
-//                           ),
-//                           trailing: Text(
-//                             "${notification[index].time}",
-//                             style: const TextStyle(
-//                                 fontSize: 15,
-//                                 fontWeight: FontWeight.bold,
-//                                 color: Colors.white),
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ),
-//               );
-//             },
-//           ),
-//         ),
-//       ),

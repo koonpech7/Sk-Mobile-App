@@ -307,6 +307,7 @@ class _CreateRoomsState extends State<CreateRooms> {
       "mqtt_topic_lamp_5": lamp5topic,
       "mqtt_topic_lamp_6": lamp6topic,
       "cam_url": camurl,
+      "active": true,
     };
 
     // call api post method

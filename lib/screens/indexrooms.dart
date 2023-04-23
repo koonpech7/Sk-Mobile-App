@@ -33,31 +33,6 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
 
   int pages = 1;
 
-  // late SharedPreferences prefs;
-
-  // initSaredPreferences() async {
-  //   prefs = await SharedPreferences.getInstance();
-  //   // print(prefs.get('X-Token'));
-  // }
-
-  //Api Call
-
-  // Future<Void> getDataFromApi() async {
-  //   Uri url = Uri.parse("http://202.44.35.76:9091/api/rooms?page=${pages}");
-  //   var response = await http.get(url);
-
-  //   if (response.statusCode == HttpStatus.ok) {
-  //     final json = jsonDecode(response.body) as Map;
-  //     final result = json['items'];
-  //     //ok
-  //     // AllRoomsModels allroom = allRoomsModelsFromJson(response.body);
-  //     // return allroom;
-  //   } else {
-  //     errorMsg = "${response.statusCode}: ${response.body}";
-  //     // return AllRoomsModels(item: [], page: 0, totalCount: 0, totalPages: 0);
-  //   }
-  // }
-
   assignData() async {
     try {
       fethData();
@@ -145,8 +120,8 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
                                                             item['label'],
                                                       )));
                                         },
-                                        backgroundColor:
-                                            Color.fromARGB(255, 19, 112, 252),
+                                        backgroundColor: const Color.fromARGB(
+                                            255, 19, 112, 252),
                                         foregroundColor: Colors.white,
                                         icon: Icons.edit,
                                         label: 'Edit',
@@ -208,11 +183,15 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold)),
-                                                Text("${item['active']}",
+                                                Text(
+                                                    item[
+                                                            'active']
+                                                        ? "Active"
+                                                        : "Not Active",
                                                     style: const TextStyle(
                                                         fontSize: 18,
                                                         color: Color.fromARGB(
-                                                            255, 4, 236, 11),
+                                                            255, 255, 255, 255),
                                                         fontWeight:
                                                             FontWeight.bold))
                                               ],
