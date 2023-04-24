@@ -15,52 +15,6 @@ class MQTTClientManager {
   MqttServerClient client =
       MqttServerClient.withPort('202.44.35.76', "SKAPP", 1883);
 
-  // late SettingMqttServer settingMQTT;
-  // // isLoading ?
-  // bool isLoading = false;
-  // // error msg?
-  // String errorMsg = "";
-
-  // Future<SettingMqttServer> getDataFromApi() async {
-  //   Uri url = Uri.parse("http://202.44.35.76:9091/api/settings/");
-  //   var response = await http.get(url);
-
-  //   if (response.statusCode == HttpStatus.ok) {
-  //     //ok
-  //     SettingMqttServer setMQTT = settingMqttServerFromJson(response.body);
-  //     return setMQTT;
-  //   } else {
-  //     errorMsg = "${response.statusCode}: ${response.body}";
-  //     return SettingMqttServer(
-  //         active: false,
-  //         cronjobTime: "",
-  //         id: 0,
-  //         modelData: "",
-  //         mqttClientName: "",
-  //         mqttIp: "",
-  //         mqttPassword: "",
-  //         mqttPort: "",
-  //         mqttUsername: "",
-  //         notifyAccessToken: "",
-  //         updateAt: DateTime.now());
-  //   }
-  // }
-
-  // assignData() async {
-  //   try {
-  //     settingMQTT = await getDataFromApi();
-  //   } on Exception catch (e) {
-  //     // TODO
-  //     print("error");
-  //   }
-  // }
-
-  // void initState() {
-  //   // TODO: implement initState
-  //   // cal api
-  //   assignData();
-  // }
-
   Future<int> connect() async {
     client.logging(on: true);
     client.keepAlivePeriod = 60;

@@ -176,19 +176,15 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                             subtitle: Row(
-                                              children: [
-                                                const Text("Status   ",
+                                              children: const [
+                                                Text("Status   ",
                                                     style: TextStyle(
                                                         fontSize: 18,
                                                         color: Colors.white,
                                                         fontWeight:
                                                             FontWeight.bold)),
-                                                Text(
-                                                    item[
-                                                            'active']
-                                                        ? "Active"
-                                                        : "Not Active",
-                                                    style: const TextStyle(
+                                                Text("Active",
+                                                    style: TextStyle(
                                                         fontSize: 18,
                                                         color: Color.fromARGB(
                                                             255, 255, 255, 255),

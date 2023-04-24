@@ -36,8 +36,6 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
   String cdate = DateFormat("dd-MM-yyyy").format(DateTime.now());
   String tdata = DateFormat("HH:mm:ss").format(DateTime.now());
 
-  String doorTopic = "";
-
   bool roomst = true;
   bool doorstatus = true;
   bool lamp1status = true;
@@ -214,17 +212,27 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           name: "Door",
                           status: doorstatus,
                           onPressd: () {
-                            setState(() {
-                              doorstatus = !doorstatus;
-                              if (doorstatus) {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicDoor, "Lock");
-                              } else {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicDoor, "UnLock");
-                              }
-                              sendDataLog();
-                            });
+                            try {
+                              setState(() {
+                                doorstatus = !doorstatus;
+                                if (doorstatus) {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicDoor, "off");
+                                } else {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicDoor, "on");
+                                }
+                                sendDataLog();
+                              });
+                            } on Exception catch (e) {
+                              // TODO
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.error,
+                                title: 'Oops...',
+                                text: 'Check you topic or MQTT Server',
+                              );
+                            }
                           }),
                       const SizedBox(
                         height: 10,
@@ -234,17 +242,27 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           name: "Air conditioner",
                           status: airstatus,
                           onPressd: () {
-                            setState(() {
-                              airstatus = !airstatus;
-                              if (airstatus) {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicAir, "off");
-                              } else {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicAir, "on");
-                              }
-                              sendDataLog();
-                            });
+                            try {
+                              setState(() {
+                                airstatus = !airstatus;
+                                if (airstatus) {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicAir, "off");
+                                } else {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicAir, "on");
+                                }
+                                sendDataLog();
+                              });
+                            } on Exception catch (e) {
+                              // TODO
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.error,
+                                title: 'Oops...',
+                                text: 'Check you topic or MQTT Server',
+                              );
+                            }
                           }),
                       const SizedBox(height: 10),
                       SKRoomcard(
@@ -252,17 +270,27 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                         name: "Lamp 1",
                         status: lamp1status,
                         onPressd: () {
-                          setState(() {
-                            lamp1status = !lamp1status;
-                            if (lamp1status) {
-                              mqttClientManager.publishMessage(
-                                  roomsingle.mqttTopicLamp1, "off");
-                            } else {
-                              mqttClientManager.publishMessage(
-                                  roomsingle.mqttTopicLamp1, "on");
-                            }
-                            sendDataLog();
-                          });
+                          try {
+                            setState(() {
+                              lamp1status = !lamp1status;
+                              if (lamp1status) {
+                                mqttClientManager.publishMessage(
+                                    roomsingle.mqttTopicLamp1, "off");
+                              } else {
+                                mqttClientManager.publishMessage(
+                                    roomsingle.mqttTopicLamp1, "on");
+                              }
+                              sendDataLog();
+                            });
+                          } on Exception catch (e) {
+                            // TODO
+                            QuickAlert.show(
+                              context: context,
+                              type: QuickAlertType.error,
+                              title: 'Oops...',
+                              text: 'Check you topic or MQTT Server',
+                            );
+                          }
                         },
                       ),
                       const SizedBox(
@@ -273,17 +301,27 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           name: "Lamp 2",
                           status: lamp2status,
                           onPressd: () {
-                            setState(() {
-                              lamp2status = !lamp2status;
-                              if (lamp2status) {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp2, "off");
-                              } else {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp2, "on");
-                              }
-                              sendDataLog();
-                            });
+                            try {
+                              setState(() {
+                                lamp2status = !lamp2status;
+                                if (lamp2status) {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp2, "off");
+                                } else {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp2, "on");
+                                }
+                                sendDataLog();
+                              });
+                            } on Exception catch (e) {
+                              // TODO
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.error,
+                                title: 'Oops...',
+                                text: 'Check you topic or MQTT Server',
+                              );
+                            }
                           }),
                       const SizedBox(
                         height: 10,
@@ -293,17 +331,27 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           name: "Lamp 3",
                           status: lamp3status,
                           onPressd: () {
-                            setState(() {
-                              lamp3status = !lamp3status;
-                              if (lamp3status) {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp3, "off");
-                              } else {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp3, "on");
-                              }
-                              sendDataLog();
-                            });
+                            try {
+                              setState(() {
+                                lamp3status = !lamp3status;
+                                if (lamp3status) {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp3, "off");
+                                } else {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp3, "on");
+                                }
+                                sendDataLog();
+                              });
+                            } on Exception catch (e) {
+                              // TODO
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.error,
+                                title: 'Oops...',
+                                text: 'Check you topic or MQTT Server',
+                              );
+                            }
                           }),
                       const SizedBox(height: 10),
                       SKRoomcard(
@@ -311,17 +359,27 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           name: "Lamp 4",
                           status: lamp4status,
                           onPressd: () {
-                            setState(() {
-                              lamp4status = !lamp4status;
-                              if (lamp4status) {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp4, "off");
-                              } else {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp4, "on");
-                              }
-                              sendDataLog();
-                            });
+                            try {
+                              setState(() {
+                                lamp4status = !lamp4status;
+                                if (lamp4status) {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp4, "off");
+                                } else {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp4, "on");
+                                }
+                                sendDataLog();
+                              });
+                            } on Exception catch (e) {
+                              // TODO
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.error,
+                                title: 'Oops...',
+                                text: 'Check you topic or MQTT Server',
+                              );
+                            }
                           }),
                       const SizedBox(height: 10),
                       SKRoomcard(
@@ -329,17 +387,27 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           name: "Lamp 5",
                           status: lamp5status,
                           onPressd: () {
-                            setState(() {
-                              lamp5status = !lamp5status;
-                              if (lamp5status) {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp5, "off");
-                              } else {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp5, "on");
-                              }
-                              sendDataLog();
-                            });
+                            try {
+                              setState(() {
+                                lamp5status = !lamp5status;
+                                if (lamp5status) {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp5, "off");
+                                } else {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp5, "on");
+                                }
+                                sendDataLog();
+                              });
+                            } on Exception catch (e) {
+                              // TODO
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.error,
+                                title: 'Oops...',
+                                text: 'Check you topic or MQTT Server',
+                              );
+                            }
                           }),
                       const SizedBox(height: 10),
                       SKRoomcard(
@@ -347,17 +415,27 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                           name: "Lamp 6",
                           status: lamp6status,
                           onPressd: () {
-                            setState(() {
-                              lamp6status = !lamp6status;
-                              if (lamp6status) {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp6, "off");
-                              } else {
-                                mqttClientManager.publishMessage(
-                                    roomsingle.mqttTopicLamp6, "on");
-                              }
-                              sendDataLog();
-                            });
+                            try {
+                              setState(() {
+                                lamp6status = !lamp6status;
+                                if (lamp6status) {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp6, "off");
+                                } else {
+                                  mqttClientManager.publishMessage(
+                                      roomsingle.mqttTopicLamp6, "on");
+                                }
+                                sendDataLog();
+                              });
+                            } on Exception catch (e) {
+                              // TODO
+                              QuickAlert.show(
+                                context: context,
+                                type: QuickAlertType.error,
+                                title: 'Oops...',
+                                text: 'Check you topic or MQTT Server',
+                              );
+                            }
                           }),
                       const SizedBox(height: 10),
                       Container(
@@ -515,13 +593,13 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
         setState(() {
           lamp6status = true;
         });
-      } else if (c[0].topic == "/Update_Door44-702" && publicMess == "Lock") {
-        setState(() {
-          doorstatus = true;
-        });
-      } else if (c[0].topic == "/Update_Door44-702" && publicMess == "unlock") {
+      } else if (c[0].topic == "/Update_Door44-702" && publicMess == "Unlock") {
         setState(() {
           doorstatus = false;
+        });
+      } else if (c[0].topic == "/Update_Door44-702" && publicMess == "lock") {
+        setState(() {
+          doorstatus = true;
         });
       }
     });

@@ -149,8 +149,6 @@ class _LoginPagesState extends State<LoginPages> {
     if (response.statusCode == 200) {
       Map<String, dynamic> xToken = jsonDecode(response.body);
       prefs.setString("X-Token", xToken['access_token']);
-      // print(prefs.get('X-Token'));
-      // print('Howdy, ${x_token['access_token']}!');
       return QuickAlert.show(
         context: context,
         type: QuickAlertType.success,

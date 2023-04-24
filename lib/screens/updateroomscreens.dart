@@ -414,9 +414,6 @@ class _UpdateRoomsState extends State<UpdateRooms> {
     var response = await http
         .put(url, body: jsonEncode(body), headers: {'X-Token': '$token'});
 
-    // print(response.statusCode);
-    // print(response.body);
-
     ClearTextfield();
 
     // if success
