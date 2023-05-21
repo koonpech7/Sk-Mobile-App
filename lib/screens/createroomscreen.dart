@@ -39,8 +39,8 @@ class _CreateRoomsState extends State<CreateRooms> {
     return Scaffold(
       backgroundColor: const Color(0xFF1F1F39),
       appBar: SKAppBar(
-        title: "Create You Rooms",
-        subtitle: "Create rooms with you topic",
+        title: "Create Rooms",
+        subtitle: "Create rooms with you name",
         onPressed: () {
           Navigator.pop(context);
         },
@@ -93,7 +93,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                     controller: doorTopic,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelText: "Door Topic",
+                      labelText: "Door Name",
                       labelStyle: TextStyle(
                         color:
                             Color.fromARGB(255, 255, 255, 255), //<-- SEE HERE
@@ -110,7 +110,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                     controller: airTopic,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelText: "Air Conditioner Topic",
+                      labelText: "Air Conditioner Name",
                       labelStyle: TextStyle(
                         color:
                             Color.fromARGB(255, 255, 255, 255), //<-- SEE HERE
@@ -127,7 +127,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                     controller: lamp1Topic,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelText: "Lamp 1 Topic",
+                      labelText: "Lamp Name",
                       labelStyle: TextStyle(
                         color:
                             Color.fromARGB(255, 255, 255, 255), //<-- SEE HERE
@@ -144,7 +144,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                     controller: lamp2Topic,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelText: "Lamp 2  Topic",
+                      labelText: "Lamp Name",
                       labelStyle: TextStyle(
                         color:
                             Color.fromARGB(255, 255, 255, 255), //<-- SEE HERE
@@ -161,7 +161,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                     controller: lamp3Topic,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelText: "Lamp 3 Topic",
+                      labelText: "Lamp Name",
                       labelStyle: TextStyle(
                         color:
                             Color.fromARGB(255, 255, 255, 255), //<-- SEE HERE
@@ -178,7 +178,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                     controller: lamp4Topic,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelText: "Lamp 4 Topic",
+                      labelText: "Lamp Name",
                       labelStyle: TextStyle(
                         color:
                             Color.fromARGB(255, 255, 255, 255), //<-- SEE HERE
@@ -195,7 +195,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                     controller: lamp5Topic,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelText: "Lamp 5 Topic",
+                      labelText: "Lamp Name",
                       labelStyle: TextStyle(
                         color:
                             Color.fromARGB(255, 255, 255, 255), //<-- SEE HERE
@@ -212,7 +212,7 @@ class _CreateRoomsState extends State<CreateRooms> {
                     controller: lamp6Topic,
                     style: const TextStyle(color: Colors.white),
                     decoration: const InputDecoration(
-                      labelText: "Lamp 6 Topic",
+                      labelText: "Lamp Name",
                       labelStyle: TextStyle(
                         color:
                             Color.fromARGB(255, 255, 255, 255), //<-- SEE HERE

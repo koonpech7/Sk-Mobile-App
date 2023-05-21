@@ -209,7 +209,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                       ),
                       SKRoomcard(
                           topic: roomsingle.mqttTopicDoor,
-                          name: "Door",
+                          name: roomsingle.mqttTopicDoor,
                           status: doorstatus,
                           onPressd: () {
                             try {
@@ -239,7 +239,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                       ),
                       SKRoomcard(
                           topic: roomsingle.mqttTopicAir,
-                          name: "Air conditioner",
+                          name: roomsingle.mqttTopicAir,
                           status: airstatus,
                           onPressd: () {
                             try {
@@ -267,7 +267,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                       const SizedBox(height: 10),
                       SKRoomcard(
                         topic: roomsingle.mqttTopicLamp1,
-                        name: "Lamp 1",
+                        name: roomsingle.mqttTopicLamp1,
                         status: lamp1status,
                         onPressd: () {
                           try {
@@ -298,7 +298,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                       ),
                       SKRoomcard(
                           topic: roomsingle.mqttTopicLamp2,
-                          name: "Lamp 2",
+                          name: roomsingle.mqttTopicLamp2,
                           status: lamp2status,
                           onPressd: () {
                             try {
@@ -328,7 +328,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                       ),
                       SKRoomcard(
                           topic: roomsingle.mqttTopicLamp3,
-                          name: "Lamp 3",
+                          name: roomsingle.mqttTopicLamp3,
                           status: lamp3status,
                           onPressd: () {
                             try {
@@ -356,7 +356,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                       const SizedBox(height: 10),
                       SKRoomcard(
                           topic: roomsingle.mqttTopicLamp4,
-                          name: "Lamp 4",
+                          name: roomsingle.mqttTopicLamp4,
                           status: lamp4status,
                           onPressd: () {
                             try {
@@ -384,7 +384,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                       const SizedBox(height: 10),
                       SKRoomcard(
                           topic: roomsingle.mqttTopicLamp5,
-                          name: "Lamp 5",
+                          name: roomsingle.mqttTopicLamp5,
                           status: lamp5status,
                           onPressd: () {
                             try {
@@ -412,7 +412,7 @@ class _GetSingleRoomState extends State<GetSingleRoom> {
                       const SizedBox(height: 10),
                       SKRoomcard(
                           topic: roomsingle.mqttTopicLamp6,
-                          name: "Lamp 6",
+                          name: roomsingle.mqttTopicLamp6,
                           status: lamp6status,
                           onPressd: () {
                             try {

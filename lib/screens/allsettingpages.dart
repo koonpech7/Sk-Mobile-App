@@ -18,10 +18,16 @@ class SettingPages extends StatefulWidget {
   State<SettingPages> createState() => _SettingPagesState();
 }
 
-TextEditingController firstname = TextEditingController();
-TextEditingController lastname = TextEditingController();
-TextEditingController email = TextEditingController();
-TextEditingController tell = TextEditingController();
+TextEditingController getfirstname = TextEditingController();
+TextEditingController getlastname = TextEditingController();
+TextEditingController getemail = TextEditingController();
+TextEditingController gettell = TextEditingController();
+
+TextEditingController enterfirstname = TextEditingController();
+TextEditingController enterpassword = TextEditingController();
+TextEditingController enterlastname = TextEditingController();
+TextEditingController enteremail = TextEditingController();
+TextEditingController entertell = TextEditingController();
 
 class _SettingPagesState extends State<SettingPages> {
   late SharedPreferences prefs;
@@ -167,7 +173,7 @@ class _SettingPagesState extends State<SettingPages> {
                                       height: height / 60,
                                     ),
                                     TextField(
-                                        controller: firstname,
+                                        controller: getfirstname,
                                         style: const TextStyle(
                                             color: Colors.white),
                                         decoration: const InputDecoration(
@@ -178,7 +184,7 @@ class _SettingPagesState extends State<SettingPages> {
                                       height: 10,
                                     ),
                                     TextField(
-                                      controller: lastname,
+                                      controller: getlastname,
                                       style:
                                           const TextStyle(color: Colors.white),
                                       decoration: const InputDecoration(
@@ -190,7 +196,7 @@ class _SettingPagesState extends State<SettingPages> {
                                       height: 10,
                                     ),
                                     TextField(
-                                      controller: email,
+                                      controller: getemail,
                                       style:
                                           const TextStyle(color: Colors.white),
                                       decoration: const InputDecoration(
@@ -202,7 +208,7 @@ class _SettingPagesState extends State<SettingPages> {
                                       height: 10,
                                     ),
                                     TextField(
-                                      controller: tell,
+                                      controller: gettell,
                                       style:
                                           const TextStyle(color: Colors.white),
                                       decoration: const InputDecoration(
@@ -231,15 +237,121 @@ class _SettingPagesState extends State<SettingPages> {
                                   ],
                                 ),
                               ),
+                              Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(5.0),
+                                    child: ExpansionTile(
+                                      title: const Text(
+                                        "Create Account ",
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      leading: const Icon(
+                                        Icons.person,
+                                        color: Colors.white,
+                                      ),
+                                      trailing: const Icon(
+                                        Icons.keyboard_arrow_down,
+                                        color: Colors.white,
+                                      ), //add icon
+                                      childrenPadding: const EdgeInsets.only(
+                                          left: 2), //children padding
+                                      children: [
+                                        SizedBox(
+                                          height: height / 60,
+                                        ),
+                                        TextField(
+                                            controller: enteremail,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                            decoration: const InputDecoration(
+                                                labelText: 'Email',
+                                                border: OutlineInputBorder(),
+                                                focusColor: Colors.white)),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        TextField(
+                                          controller: enterpassword,
+                                          obscureText: true,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          decoration: const InputDecoration(
+                                            labelText: "Password",
+                                            border: OutlineInputBorder(),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        TextField(
+                                          controller: enterfirstname,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          decoration: const InputDecoration(
+                                            labelText: "First Name",
+                                            border: OutlineInputBorder(),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        TextField(
+                                          controller: enterlastname,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          decoration: const InputDecoration(
+                                            labelText: "Last Name",
+                                            border: OutlineInputBorder(),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        ),
+                                        TextField(
+                                          controller: entertell,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          decoration: const InputDecoration(
+                                            labelText: "Tell",
+                                            border: OutlineInputBorder(),
+                                          ),
+                                        ),
+                                        Row(
+                                          children: [
+                                            const Spacer(),
+                                            Container(
+                                              padding: const EdgeInsets.all(10),
+                                              height: height / 11,
+                                              child: OutlinedButton(
+                                                onPressed: submitPostdata,
+                                                child: const Text(
+                                                  'Create',
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255)),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: height / 15,
+                                  )
+                                ],
+                              ),
                               SizedBox(
                                 height: height / 15,
-                              )
+                              ),
                             ],
                           ),
                         ),
                         SizedBox(
                           height: height / 7,
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -247,22 +359,15 @@ class _SettingPagesState extends State<SettingPages> {
     );
   }
 
-  ConvertdatatoTextfiled() {
-    firstname.text = getMelogin.firstName;
-    lastname.text = getMelogin.lastName;
-    email.text = getMelogin.email;
-    tell.text = getMelogin.tel;
-  }
-
   Future<void> summitupdateData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString('X-Token');
 
     final body = {
-      "first_name": firstname.text,
-      "last_name": lastname.text,
-      "tel": tell.text,
-      "email": email.text
+      "first_name": getfirstname.text,
+      "last_name": getlastname.text,
+      "tel": gettell.text,
+      "email": getemail.text
     };
 
     // call api post method
@@ -281,6 +386,64 @@ class _SettingPagesState extends State<SettingPages> {
         type: QuickAlertType.success,
         title: 'Success',
         text: 'Update user success',
+      );
+    } else {
+      return QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Oopss...',
+        text: 'Please check you server',
+      );
+    }
+  }
+
+  ConvertdatatoTextfiled() {
+    getfirstname.text = getMelogin.firstName;
+    getlastname.text = getMelogin.lastName;
+    getemail.text = getMelogin.email;
+    gettell.text = getMelogin.tel;
+  }
+
+  Future<void> submitPostdata() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('X-Token');
+
+    if (enteremail.text.isEmpty ||
+        enterpassword.text.isEmpty ||
+        enterfirstname.text.isEmpty ||
+        enterlastname.text.isEmpty ||
+        entertell.text.isEmpty) {
+      return QuickAlert.show(
+        context: context,
+        type: QuickAlertType.error,
+        title: 'Oopss...',
+        text: 'Please Input Data',
+      );
+    }
+
+    // set data for api body
+
+    final body = {
+      "active": true,
+      "first_name": enterfirstname.text,
+      "last_name": enterlastname.text,
+      "tel": entertell.text,
+      "password": enterpassword.text,
+      "email": enteremail.text
+    };
+
+    // call api post method
+    Uri url = Uri.parse("http://202.44.35.76:9091/api/dashboard/users/new");
+    var response = await http
+        .post(url, body: jsonEncode(body), headers: {'X-Token': '$token'});
+
+    // if success
+    if (response.statusCode == 200) {
+      return QuickAlert.show(
+        context: context,
+        type: QuickAlertType.success,
+        title: 'Success',
+        text: 'Create success',
       );
     } else {
       return QuickAlert.show(

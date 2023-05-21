@@ -83,8 +83,8 @@ class _SKRoomcardState extends State<SKRoomcard> {
                       child: IconButton(
                         onPressed: widget.onPressd,
                         icon: widget.status
-                            ? const Icon(FontAwesomeIcons.lock)
-                            : const Icon(FontAwesomeIcons.unlock),
+                            ? const Icon(FontAwesomeIcons.lightbulb)
+                            : const Icon(FontAwesomeIcons.solidLightbulb),
                         iconSize: 30,
                         color: Colors.white,
                       ),

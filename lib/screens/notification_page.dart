@@ -140,10 +140,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                               vertical: 10),
                                       title: Text(
                                         overflow: TextOverflow.ellipsis,
-                                        "Rooms "
                                         "${notificationsLog.items[index].roomLabel}",
                                         style: const TextStyle(
-                                            fontSize: 28,
+                                            fontSize: 20,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white),
                                       ),

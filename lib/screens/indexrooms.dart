@@ -174,24 +174,25 @@ class _IndexroomsScreensState extends State<IndexroomsScreens> {
                                                   fontWeight: FontWeight.bold,
                                                   color: Colors.white),
                                               overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
                                             ),
-                                            subtitle: Row(
-                                              children: const [
-                                                Text("Status   ",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.bold)),
-                                                Text("Active",
-                                                    style: TextStyle(
-                                                        fontSize: 18,
-                                                        color: Color.fromARGB(
-                                                            255, 255, 255, 255),
-                                                        fontWeight:
-                                                            FontWeight.bold))
-                                              ],
-                                            ),
+                                            // subtitle: Row(
+                                            //   children: const [
+                                            //     Text("Status   ",
+                                            //         style: TextStyle(
+                                            //             fontSize: 18,
+                                            //             color: Colors.white,
+                                            //             fontWeight:
+                                            //                 FontWeight.bold)),
+                                            //     Text("Active",
+                                            //         style: TextStyle(
+                                            //             fontSize: 18,
+                                            //             color: Color.fromARGB(
+                                            //                 255, 255, 255, 255),
+                                            //             fontWeight:
+                                            //                 FontWeight.bold))
+                                            //   ],
+                                            // ),
                                             trailing: CircleAvatar(
                                               backgroundColor:
                                                   const Color(0xFF69696F),
